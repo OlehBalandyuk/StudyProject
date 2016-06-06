@@ -1,0 +1,273 @@
+Index: app/src/main/res/layout/activity_main_app_bar.xml
+===================================================================
+--- app/src/main/res/layout/activity_main_app_bar.xml	(date 1465225663000)
++++ app/src/main/res/layout/activity_main_screen_app_bar.xml	(revision )
+@@ -1,34 +1,13 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:fitsSystemWindows="true"
+-    tools:context=".application.ui.activities.MainScreenActivity">
++    tools:context="com.olehbalandyuk.studyproject.application.ui.activities.MainScreenActivity">
+ 
+-    <android.support.design.widget.AppBarLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:theme="@style/AppTheme.AppBarOverlay">
++    <!--  -->
+ 
+-        <android.support.v7.widget.Toolbar
+-            android:id="@+id/toolbar"
+-            android:layout_width="match_parent"
+-            android:layout_height="?attr/actionBarSize"
+-            android:background="?attr/colorPrimary"
+-            app:popupTheme="@style/AppTheme.PopupOverlay" />
++    <include layout="@layout/activity_main_screen_content" />
+ 
+-    </android.support.design.widget.AppBarLayout>
+-
+-    <include layout="@layout/activity_main_content" />
+-
+-    <android.support.design.widget.FloatingActionButton
+-        android:id="@+id/fab"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="bottom|end"
+-        android:layout_margin="@dimen/fab_margin"
+-        android:src="@android:drawable/ic_dialog_email" />
+-
+-</android.support.design.widget.CoordinatorLayout>
++</LinearLayout>
+Index: app/src/main/res/values/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/dimens.xml	(date 1465225663000)
++++ app/src/main/res/values/dimens.xml	(revision )
+@@ -18,4 +18,7 @@
+     <dimen name="activity_login_layouts_padding">16dp</dimen>
+     <dimen name="activity_login_fields_text_size">14sp</dimen>
+     <dimen name="activity_login_button_top_margin">16dp</dimen>
++
++    <!-- Activity Main Screen dimens -->
++    <dimen name="activity_main_screen_toolbar_text_size">20sp</dimen>
+ </resources>
+Index: app/src/main/java/com/olehbalandyuk/studyproject/application/ui/activities/MainScreenActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/olehbalandyuk/studyproject/application/ui/activities/MainScreenActivity.java	(date 1465225663000)
++++ app/src/main/java/com/olehbalandyuk/studyproject/application/ui/activities/MainScreenActivity.java	(revision )
+@@ -21,7 +21,7 @@
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+-        setContentView(R.layout.activity_main);
++        setContentView(R.layout.activity_main_screen);
+         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+         setSupportActionBar(toolbar);
+ 
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(date 1465225663000)
++++ app/src/main/res/values/strings.xml	(revision )
+@@ -12,4 +12,12 @@
+     <string name="activity_login_forgot_password">Forgot password?</string>
+     <string name="activity_login_create_new_account">Create new account</string>
+ 
++    <!-- Activity Main Screen strings -->
++    <string name="activity_main_screen_toolbar_text">Study Project</string>
++    <string name="activity_main_screen_nav_header_user_name">User name</string>
++    <string name="activity_main_screen_nav_header_user_balance">User balance</string>
++    <string name="activity_main_screen_nav_header_currency">grn.</string>
++    <string name="activity_main_screen_nav_header_user_bonus">User bonus</string>
++    <string name="activity_main_screen_nav_header_user_bonuses_currency">bonuses.</string>
++
+ </resources>
+Index: app/src/main/res/layout/activity_main.xml
+===================================================================
+--- app/src/main/res/layout/activity_main.xml	(date 1465225663000)
++++ app/src/main/res/layout/activity_main_screen.xml	(revision )
+@@ -9,7 +9,7 @@
+     tools:openDrawer="start">
+ 
+     <include
+-        layout="@layout/activity_main_app_bar"
++        layout="@layout/activity_main_screen_app_bar"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent" />
+ 
+@@ -19,7 +19,7 @@
+         android:layout_height="match_parent"
+         android:layout_gravity="start"
+         android:fitsSystemWindows="true"
+-        app:headerLayout="@layout/activity_main_nav_header"
++        app:headerLayout="@layout/activity_main_screen_nav_header"
+         app:menu="@menu/activity_main_drawer" />
+ 
+ </android.support.v4.widget.DrawerLayout>
+Index: app/src/main/res/layout/activity_main_content.xml
+===================================================================
+--- app/src/main/res/layout/activity_main_content.xml	(date 1465225663000)
++++ app/src/main/res/layout/activity_main_screen_content.xml	(revision )
+@@ -1,19 +1,18 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:paddingBottom="@dimen/activity_vertical_margin"
+-    android:paddingLeft="@dimen/activity_horizontal_margin"
+-    android:paddingRight="@dimen/activity_horizontal_margin"
+-    android:paddingTop="@dimen/activity_vertical_margin"
++    android:background="@color/white"
+     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+-    tools:context=".application.ui.activities.MainScreenActivity"
+-    tools:showIn="@layout/activity_main_app_bar">
++    android:orientation="vertical"
++    tools:context="com.olehbalandyuk.studyproject.application.ui.activities.MainScreenActivity"
++    tools:showIn="@layout/activity_main_screen_app_bar">
+ 
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="Hello World!" />
+-</RelativeLayout>
++    <android.support.v4.view.ViewPager
++        android:id="@+id/viewpager"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_main_nav_header.xml
+===================================================================
+--- app/src/main/res/layout/activity_main_nav_header.xml	(date 1465225663000)
++++ app/src/main/res/layout/activity_main_screen_nav_header.xml	(revision )
+@@ -1,8 +1,9 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:id="@+id/nav_header"
+     android:layout_width="match_parent"
+-    android:layout_height="@dimen/nav_header_height"
+-    android:background="@drawable/side_nav_bar"
++    android:layout_height="220dp"
++    android:background="@drawable/material_header"
+     android:gravity="bottom"
+     android:orientation="vertical"
+     android:paddingBottom="@dimen/activity_vertical_margin"
+@@ -11,24 +12,92 @@
+     android:paddingTop="@dimen/activity_vertical_margin"
+     android:theme="@style/ThemeOverlay.AppCompat.Dark">
+ 
++    <TextView
++        android:id="@+id/nav_header_user_email"
++
++        android:layout_width="wrap_content"
++        android:padding="8dp"
++        android:layout_height="wrap_content"
++        android:layout_alignParentTop="true"
++        android:layout_alignParentLeft="true"
++        android:layout_alignParentStart="true" />
++
+     <ImageView
+-        android:id="@+id/imageView"
++        android:id="@+id/nav_header_user_logo"
++        android:layout_below="@+id/nav_header_user_email"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:paddingTop="@dimen/nav_header_vertical_spacing"
+-        android:src="@android:drawable/sym_def_app_icon" />
++        android:src="@drawable/activity_main_screen_nav_header_person_icon"/>
+ 
+     <TextView
+-        android:layout_width="match_parent"
++        android:id="@+id/nav_header_user_name"
++        android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:paddingTop="@dimen/nav_header_vertical_spacing"
+-        android:text="Android Studio"
+-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
++        android:layout_toRightOf="@+id/nav_header_user_logo"
++        android:layout_toEndOf="@+id/nav_header_user_logo"
++        android:layout_alignBottom="@+id/nav_header_user_logo"
++        android:padding="8dp"
++        android:textStyle="bold|italic"
++        android:text="@string/activity_main_screen_nav_header_user_name"/>
+ 
++    <ImageView
++        android:id="@+id/nav_header_balance_logo"
++        android:layout_below="@+id/nav_header_user_logo"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:src="@drawable/activity_main_screen_nav_header_bancnote_icon"/>
++
+     <TextView
+-        android:id="@+id/textView"
++        android:id="@+id/nav_header_user_balance"
++        android:layout_toRightOf="@+id/nav_header_balance_logo"
++        android:layout_toEndOf="@+id/nav_header_balance_logo"
++        android:layout_alignBottom="@+id/nav_header_balance_logo"
++        android:padding="8dp"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:text="android.studio@android.com" />
++        android:textStyle="bold|italic"
++        android:text="@string/activity_main_screen_nav_header_user_balance"/>
+ 
+-</LinearLayout>
++    <TextView
++        android:id="@+id/user_balance_currency"
++        android:layout_toRightOf="@+id/nav_header_user_balance"
++        android:layout_toEndOf="@+id/nav_header_user_balance"
++        android:layout_alignBottom="@+id/nav_header_user_balance"
++        android:paddingTop="8dp"
++        android:paddingBottom="8dp"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:textStyle="bold|italic"
++        android:text="@string/activity_main_screen_nav_header_currency"/>
++
++    <ImageView
++        android:id="@+id/nav_header_bonus_logo"
++        android:layout_below="@+id/nav_header_balance_logo"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:src="@drawable/activity_main_screen_nav_header_balance_icon"/>
++
++    <TextView
++        android:id="@+id/nav_header_user_bonus"
++        android:layout_toRightOf="@+id/nav_header_bonus_logo"
++        android:layout_toEndOf="@+id/nav_header_bonus_logo"
++        android:layout_alignBottom="@+id/nav_header_bonus_logo"
++        android:padding="8dp"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:textStyle="bold|italic"
++        android:text="@string/activity_main_screen_nav_header_user_bonus"/>
++
++    <TextView
++        android:id="@+id/user_bonus_currency"
++        android:layout_toRightOf="@+id/nav_header_user_bonus"
++        android:layout_toEndOf="@+id/nav_header_user_bonus"
++        android:layout_alignBottom="@+id/nav_header_user_bonus"
++        android:paddingTop="8dp"
++        android:paddingBottom="8dp"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:textStyle="bold|italic"
++        android:text="@string/activity_main_screen_nav_header_user_bonuses_currency"/>
++
++</RelativeLayout>
