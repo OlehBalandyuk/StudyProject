@@ -12,4 +12,12 @@
     <string name="activity_login_forgot_password">Forgot password?</string>
     <string name="activity_login_create_new_account">Create new account</string>
 
+    <!-- Activity Main Screen strings -->
+    <string name="activity_main_screen_toolbar_text">Study Project</string>
+    <string name="activity_main_screen_nav_header_user_name">User name</string>
+    <string name="activity_main_screen_nav_header_user_balance">User balance</string>
+    <string name="activity_main_screen_nav_header_currency">grn.</string>
+    <string name="activity_main_screen_nav_header_user_bonus">User bonus</string>
+    <string name="activity_main_screen_nav_header_user_bonuses_currency">bonuses.</string>
+
 </resources>
