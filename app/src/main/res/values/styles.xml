@@ -16,16 +16,55 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
     <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
+        <!--
         <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+        -->
     </style>
 
-    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/black_overlay</item>
+    <!-- Activity Login styles -->
+    <style name="image_logo_style">
+        <item name="android:src">@drawable/tv</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:contentDescription">@string/activity_login_logo_description</item>
+    </style>
+
+    <style name="fields_style" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:ems">5</item>
+        <item name="android:textSize">@dimen/activity_login_fields_text_size</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+
+    <style name="email_field_style" parent="fields_style">
+        <item name="android:inputType">textEmailAddress</item>
+        <item name="android:background">@drawable/activity_login_user_email_background</item>
+        <item name="android:drawableLeft">@drawable/login_field_left_drawable</item>
+        <item name="android:drawableStart">@drawable/login_field_left_drawable</item>
+    </style>
+
+    <style name="password_field_style" parent="fields_style">
+        <item name="android:inputType">textPassword</item>
+        <item name="android:background">@drawable/activity_login_password_background</item>
+        <item name="android:drawableLeft">@drawable/password_field_left_drawable</item>
+        <item name="android:drawableStart">@drawable/password_field_left_drawable</item>
+    </style>
+
+    <style name="login_button_style">
+        <item name="android:text">@string/activity_login_button_text</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
     </style>
 
 </resources>

@@ -5,4 +5,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- Activity Login strings -->
+    <string name="activity_login_logo_description">Application logo</string>
+    <string name="activity_login_button_text">Log in</string>
+    <string name="activity_login_forgot_password">Forgot password?</string>
+    <string name="activity_login_create_new_account">Create new account</string>
+
 </resources>

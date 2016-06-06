@@ -7,4 +7,15 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Activity Login dimens -->
+    <dimen name="activity_login_fields_rounding">15dp</dimen>
+    <dimen name="activity_login_fields_rounding_radius">8dp</dimen>
+    <dimen name="activity_login_fields_simulate_corners" type="dimen" format="float">0.1dp</dimen>
+    <dimen name="activity_login_stroke_disabling">-2dp</dimen>
+    <dimen name="activity_login_stroke_enabling">0.1dp</dimen>
+    <dimen name="activity_login_stroke_width">1dp</dimen>
+    <dimen name="activity_login_layouts_padding">16dp</dimen>
+    <dimen name="activity_login_fields_text_size">14sp</dimen>
+    <dimen name="activity_login_button_top_margin">16dp</dimen>
 </resources>

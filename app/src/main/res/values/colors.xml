@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#72c02c</color>
-    <color name="colorPrimaryDark">#5f9f25</color>
-    <color name="colorAccent">#c605ffb0</color>
-    <color name="colorForeground">#8d54c28a</color>
+    <color name="colorPrimary">#569962</color>
+    <color name="colorPrimaryDark">#41734a</color>
+    <color name="colorAccent">#cc42ab54</color>
+    <color name="colorForeground">#db73ca83</color>
 
     <!-- Color for fullscreen activity -->
     <color name="black_overlay">#66000000</color>
@@ -14,5 +14,7 @@
     <color name="grey">#44c1b0b0</color>
     <color name="strong_grey">#969696</color>
 
+    <!-- Activity Login colors -->
+    <color name="activity_login_fields_color">#fffce8</color>
 
 </resources>
