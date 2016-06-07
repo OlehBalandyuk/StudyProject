@@ -13,11 +13,19 @@
     <string name="activity_login_create_new_account">Create new account</string>
 
     <!-- Activity Main Screen strings -->
+    <!-- Activity Main Screen App bar strings -->
     <string name="activity_main_screen_toolbar_text">Study Project</string>
-    <string name="activity_main_screen_nav_header_user_name">User name</string>
-    <string name="activity_main_screen_nav_header_user_balance">User balance</string>
-    <string name="activity_main_screen_nav_header_currency">grn.</string>
-    <string name="activity_main_screen_nav_header_user_bonus">User bonus</string>
-    <string name="activity_main_screen_nav_header_user_bonuses_currency">bonuses.</string>
+    <!-- Activity Main Screen nav header strings -->
+    <string name="activity_main_screen_nav_header_user_name">Name</string>
+    <string name="activity_main_screen_nav_header_user_balance">Balance</string>
+    <string name="activity_main_screen_nav_header_currency">\tgrn.</string>
+    <string name="activity_main_screen_nav_header_user_bonus">Bonus</string>
+    <string name="activity_main_screen_nav_header_user_bonuses_currency">\tbonuses.</string>
+    <!-- Activity Main Screen nav menu strings -->
+    <string name="activity_main_screen_nav_menu_current_packet">Current Packet</string>
+    <string name="activity_main_screen_nav_menu_cabinet">Cabinet</string>
+    <string name="activity_main_screen_nav_menu_messages">Messages</string>
+    <string name="activity_main_screen_nav_menu_contacts">Contacts</string>
+    <string name="activity_main_screen_nav_menu_log_out">Log out</string>
 
 </resources>
