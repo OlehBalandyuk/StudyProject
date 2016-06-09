@@ -21,4 +21,5 @@
 
     <!-- Activity Main Screen dimens -->
     <dimen name="activity_main_screen_toolbar_text_size">20sp</dimen>
+    <dimen name="cabinet_recycler_view_image_size">80dp</dimen>
 </resources>

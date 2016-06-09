@@ -13,9 +13,11 @@
     tools:context="com.olehbalandyuk.studyproject.application.ui.activities.MainScreenActivity"
     tools:showIn="@layout/activity_main_screen_app_bar">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <LinearLayout
+        android:id = "@+id/container"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 </LinearLayout>
