@@ -42,7 +42,7 @@
 
 
         <com.dd.processbutton.iml.ActionProcessButton
-            android:id="@+id/btnProcess"
+            android:id="@+id/login_button"
             style="@style/login_button_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

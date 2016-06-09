@@ -38,11 +38,11 @@
             android:id="@+id/password_field"
             style="@style/password_field_style"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
 
         <com.dd.processbutton.iml.ActionProcessButton
-            android:id="@+id/btnProcess"
+            android:id="@+id/login_button"
             style="@style/login_button_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

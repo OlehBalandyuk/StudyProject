@@ -11,6 +11,12 @@
     <string name="activity_login_button_text">Log in</string>
     <string name="activity_login_forgot_password">Forgot password?</string>
     <string name="activity_login_create_new_account">Create new account</string>
+    <string name="network_error_title">Internet is unavailable</string>
+    <string name="network_error_content">Check if WiFi is turned on(recommended) or turn on the data traffic</string>
+    <string name="server_error_title">Server is unavailable</string>
+    <string name="server_error_content">Server is unavailable now. Please, try again later</string>
+    <string name="wrong_input_data_title">Wrong input data</string>
+    <string name="wrong_input_data_content">Check if you type email and password correctly.\nIf you forgot your password, use "Forgot password" link below</string>
 
     <!-- Activity Main Screen strings -->
     <!-- Activity Main Screen App bar strings -->
