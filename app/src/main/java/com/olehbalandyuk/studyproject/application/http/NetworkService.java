@@ -75,10 +75,15 @@ public class NetworkService extends Service {
         Log.v(TAG, ">> Method: handleResponse()");
 
         if (response.getLoginAccessToken() != null) {
-            Tokens.getInstance(this).setLoginTokens(response);
-            sendBroadcast(OK, (Serializable) response);
+            Tokens tokens = new Tokens(getApplicationContext());
+            tokens.setLoginTokens(response);
+
+            LoggedState logged = new LoggedState(getApplicationContext());
+            logged.setLoggedByLogin();
+
+            sendBroadcast(OK, response);
         } else if (response.getStatus().equals("ERROR")) {
-            sendBroadcast(BAD_REQUEST, (Serializable) response);
+            sendBroadcast(BAD_REQUEST, response);
         }
 
         Log.v(TAG, "<< Method: handleResponse()");

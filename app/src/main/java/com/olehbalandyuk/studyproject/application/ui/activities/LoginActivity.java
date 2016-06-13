@@ -157,6 +157,7 @@ public class LoginActivity extends AppCompatActivity {
         mLogin.setProgress(100);
         Intent mainScreen = new Intent(this, MainScreenActivity.class);
         startActivity(mainScreen);
+        finish();
 
         Log.v(TAG, "<< Method: redirectToTheMainActivity()");
     }

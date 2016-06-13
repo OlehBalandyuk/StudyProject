@@ -10,25 +10,18 @@ import com.olehbalandyuk.studyproject.application.data.database.DatabaseHelper;
 class Tokens {
     private static final String TAG = Tokens.class.getSimpleName();
 
-    private static DatabaseHelper sDBHelper;
-    private static Tokens sInstance = new Tokens();
+    private DatabaseHelper mDBHelper;
 
     private String mLoginAccessToken = "null";
     private String mLoginRefreshToken = "null";
     private String mPacketAccessToken = "null";
     private String mPacketRefreshToken = "null";
 
-    private Tokens() {
+    Tokens(Context context) {
+        mDBHelper = new DatabaseHelper(context);
     }
 
-    public static Tokens getInstance(Context context) {
-        if (sDBHelper == null) {
-            sDBHelper = new DatabaseHelper(context);
-        }
-        return sInstance;
-    }
-
-    public void setLoginTokens(AuthorizeResultModel response) {
+    void setLoginTokens(AuthorizeResultModel response) {
         Log.v(TAG, ">> Method: setLoginTokens()");
 
         mLoginAccessToken = response.getLoginAccessToken();
@@ -40,7 +33,7 @@ class Tokens {
 
     private void updateTokens() {
         Log.v(TAG, ">> Method: updateTokens()");
-        SQLiteDatabase database = sDBHelper.getWritableDatabase();
+        SQLiteDatabase database = mDBHelper.getWritableDatabase();
 
         database.execSQL("UPDATE " + DatabaseHelper.TOKENS_TABLE + " SET " +
                 DatabaseHelper.LOGIN_ACCESS_TOKEN + " = \"" + mLoginAccessToken + "\", " +
@@ -49,39 +42,43 @@ class Tokens {
                 DatabaseHelper.PACKET_REFRESH_TOKEN + " = \"" + mPacketRefreshToken + "\" "
         );
 
-        tempMethod_createLog();
+        tempMethod_createLog(database);
 
         database.close();
+        Log.v(TAG, "--> Method: updateTokens(), database is closed " + !database.isOpen());
         Log.v(TAG, "<< Method: updateTokens()");
     }
 
-    public String getLoginAccessToken(){
-        SQLiteDatabase database = sDBHelper.getWritableDatabase();
+    String getLoginAccessToken() {
+        SQLiteDatabase database = mDBHelper.getWritableDatabase();
         Cursor cursor = database.query(DatabaseHelper.TOKENS_TABLE, null, null, null, null, null, null);
 
         String loginAccessToken = cursor.getString(cursor.getColumnIndex(DatabaseHelper.LOGIN_ACCESS_TOKEN));
 
         cursor.close();
+
         database.close();
+        Log.v(TAG, "--> Method: getLoginAccessToken(), database is closed " + !database.isOpen());
 
         return loginAccessToken;
     }
 
-    public String getLoginRefreshToken() {
-        SQLiteDatabase database = sDBHelper.getWritableDatabase();
+    String getLoginRefreshToken() {
+        SQLiteDatabase database = mDBHelper.getWritableDatabase();
         Cursor cursor = database.query(DatabaseHelper.TOKENS_TABLE, null, null, null, null, null, null);
 
         String loginRefreshToken = cursor.getString(cursor.getColumnIndex(DatabaseHelper.LOGIN_REFRESH_TOKEN));
 
         cursor.close();
+
         database.close();
+        Log.v(TAG, "--> Method: getLoginRefreshToken(), database is closed " + !database.isOpen());
 
         return loginRefreshToken;
     }
 
-    private void tempMethod_createLog(){
+    private void tempMethod_createLog(SQLiteDatabase database) {
         Log.v(TAG, ">> Method: tempMethod_createLog()");
-        SQLiteDatabase database = sDBHelper.getWritableDatabase();
 
         String forLog = "";
         Cursor cursor = database.query(DatabaseHelper.TOKENS_TABLE, null, null, null, null, null, null);
@@ -96,7 +93,21 @@ class Tokens {
         Log.w(TAG, "--> Method: tempMethod_createLog, " + forLog);
         cursor.close();
 
-        database.close();
         Log.v(TAG, "<< Method: tempMethod_createLog()");
+    }
+
+    void logout() {
+        SQLiteDatabase database = mDBHelper.getWritableDatabase();
+        Log.v(TAG, ">> Method: logout()");
+        database.execSQL("INSERT INTO " + DatabaseHelper.TOKENS_TABLE + " VALUES (" +
+                "\"null\", " + // LOGIN_ACCESS_TOKEN
+                "\"null\", " + // LOGIN_REFRESH_TOKEN
+                "\"null\", " + // PACKET_ACCESS_TOKEN
+                "\"null\" )"   // PACKET_REFRESH_TOKEN
+        );
+
+        database.close();
+        Log.v(TAG, "--> Method: logout(), database is closed " + !database.isOpen());
+        Log.v(TAG, "<< Method: logout()");
     }
 }
