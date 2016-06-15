@@ -22,4 +22,18 @@
     <!-- Activity Main Screen dimens -->
     <dimen name="activity_main_screen_toolbar_text_size">20sp</dimen>
     <dimen name="cabinet_recycler_view_image_size">80dp</dimen>
+
+    <!-- Fragment Cabinet dimens -->
+    <dimen name="fragment_cabinet_container_padding">6dp</dimen>
+    <dimen name="fragment_cabinet_container_margin">8dp</dimen>
+    <dimen name="fragment_cabinet_container_corners_rounding">4dp</dimen>
+    <dimen name="fragment_cabinet_container_height">100dp</dimen>
+    <dimen name="fragment_cabinet_shadow_width">12dp</dimen>
+    <dimen name="fragment_cabinet_text_fields_side_margin">18dp</dimen>
+    <dimen name="fragment_cabinet_text_fields_top_margin">4dp</dimen>
+    <dimen name="fragment_cabinet_id_text_size">18sp</dimen>
+    <dimen name="fragment_cabinet_id_padding">4dp</dimen>
+    <dimen name="fragment_cabinet_date_text_size">14sp</dimen>
+    <dimen name="fragment_cabinet_title_text_size">20sp</dimen>
+
 </resources>

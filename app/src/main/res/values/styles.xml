@@ -88,4 +88,25 @@
         <item name="android:marqueeRepeatLimit">marquee_forever</item>
     </style>
 
+    <!-- Fragment Cabinet styles -->
+    <style name="fragment_cabinet_id_style">
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/fragment_cabinet_id_text_size</item>
+    </style>
+
+    <style name="fragment_cabinet_date_style">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/fragment_cabinet_date_text_size</item>
+    </style>
+
+    <style name="fragment_cabinet_title_style">
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/fragment_cabinet_title_text_size</item>
+    </style>
+
 </resources>
