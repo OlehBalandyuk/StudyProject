@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.olehbalandyuk.studyproject.R;
+import com.olehbalandyuk.studyproject.application.data.database.DatabaseConnector;
 import com.olehbalandyuk.studyproject.application.http.NetworkService;
 import com.olehbalandyuk.studyproject.application.utils.NetworkState;
 
@@ -154,12 +155,18 @@ public class LoginActivity extends AppCompatActivity {
 
         unregisterReceiver(mReceiver);
 
+        saveUserEmail();
+
         mLogin.setProgress(100);
         Intent mainScreen = new Intent(this, MainScreenActivity.class);
         startActivity(mainScreen);
         finish();
 
         Log.v(TAG, "<< Method: redirectToTheMainActivity()");
+    }
+
+    private void saveUserEmail() {
+        DatabaseConnector.saveUserEmail(mUsernameField.getText().toString(), this);
     }
 
     private void handleWrongInputData() {

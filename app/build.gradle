@@ -37,4 +37,7 @@ dependencies {
     //Utils
     compile 'com.google.code.gson:gson:2.4'
 
+    //TODO delete this, it's just for tests
+    compile 'com.android.volley:volley:1.0.0'
+
 }

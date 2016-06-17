@@ -91,6 +91,7 @@
     <!-- Fragment Cabinet styles -->
     <style name="fragment_cabinet_id_style">
         <item name="android:padding">4dp</item>
+        <item name="android:layout_marginRight">16dp</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">@dimen/cabinet_id_text_size</item>
     </style>
@@ -98,6 +99,9 @@
     <style name="fragment_cabinet_date_style">
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">@dimen/cabinet_date_text_size</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:ellipsize">marquee</item>
     </style>
 
     <style name="fragment_cabinet_title_style">

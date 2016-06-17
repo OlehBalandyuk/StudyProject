@@ -34,6 +34,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String PACKET_REFRESH_TOKEN = "packet_refresh_token";
 
     // Table, which contains user data
+
+    /**
+     * Name of user info table.
+     *
+     *
+     * <br/>
+     * Table contains such columns as: id, email, name, balance, bonus.
+     * <br/>
+     * @see #USER_ID
+     * @see #USER_EMAIL
+     * @see #USER_NAME
+     * @see #USER_BALANCE
+     * @see  #USER_BONUS
+     */
     public static final String USER_INFO_TABLE = "info";
     public static final String USER_ID = "_id";
     public static final String USER_EMAIL = "email";

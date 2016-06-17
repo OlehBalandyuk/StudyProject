@@ -9,10 +9,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.olehbalandyuk.studyproject.R;
+import com.olehbalandyuk.studyproject.application.data.database.DatabaseConnector;
 import com.olehbalandyuk.studyproject.application.http.UserDetails;
 import com.olehbalandyuk.studyproject.application.ui.fragments.cabinet.CabinetFragment;
 import com.olehbalandyuk.studyproject.application.ui.fragments.contacts.ContactsFragment;
@@ -23,14 +27,28 @@ public class MainScreenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = MainScreenActivity.class.getSimpleName();
 
-    private Toolbar mToolbar;
-    private NavigationView mNavigationView;
-    private DrawerLayout mDrawer;
-
     private static final int CURRENT_PACKET = 0;
     private static final int CABINET = 1;
     private static final int MESSAGES = 2;
     private static final int CONTACTS = 3;
+
+    private static final int USER_ID = 0;
+    private static final int USER_EMAIL = 0;
+    private static final int USER_NAME = 0;
+    private static final int USER_BALANCE = 0;
+    private static final int USER_BONUS = 0;
+
+    private static final boolean LOADED_FROM_DB = false;
+
+    private Toolbar mToolbar;
+    private NavigationView mNavigationView;
+    private DrawerLayout mDrawer;
+
+    private TextView mEmail;
+    private TextView mId;
+    private TextView mName;
+    private TextView mBalance;
+    private TextView mBonus;
 
     private boolean isLogged;
 
@@ -39,6 +57,7 @@ public class MainScreenActivity extends AppCompatActivity
         Log.v(TAG, ">> Method: onCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+
         mToolbar = (Toolbar) findViewById(R.id.main_screen_toolbar);
         setSupportActionBar(mToolbar);
 
@@ -49,12 +68,23 @@ public class MainScreenActivity extends AppCompatActivity
 
         toggle.syncState();
 
+        initNavigationViewWidgets();
+
+        Log.v(TAG, "<< Method: onCreate()");
+    }
+
+    private void initNavigationViewWidgets() {
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         if (mNavigationView != null) {
             mNavigationView.setNavigationItemSelectedListener(this);
         }
 
-        Log.v(TAG, "<< Method: onCreate()");
+        View header = mNavigationView.getHeaderView(0);
+        mEmail = (TextView) header.findViewById(R.id.nav_header_user_email);
+        mId = (TextView) header.findViewById(R.id.nav_header_user_id);
+        mName = (TextView) header.findViewById(R.id.nav_header_user_name);
+        mBalance = (TextView) header.findViewById(R.id.nav_header_user_balance);
+        mBonus = (TextView) header.findViewById(R.id.nav_header_user_bonus);
     }
 
     public void onResume() {
@@ -65,11 +95,37 @@ public class MainScreenActivity extends AppCompatActivity
         Log.v(TAG, "--> Method: onResume(), is logged = " + isLogged);
 
         if (isLogged) {
+            loadUserInfo();
             loadCabinetFragment();
         } else {
             redirectToLoginActivity();
         }
         Log.v(TAG, "<< Method: onResume()");
+    }
+
+    private void loadUserInfo() {
+//        if (!loadUserInfoFromDB()) {
+//            loadUserInfoFromServer();
+//        }
+    }
+
+    private void loadUserInfoFromServer() {
+
+    }
+
+    private boolean loadUserInfoFromDB() {
+        String[] userInfo = DatabaseConnector.loadUserInfo(this);
+
+         if (userInfo[USER_ID].equals("null")) {
+             return !LOADED_FROM_DB;
+         } else {
+             mId.setText(userInfo[USER_ID]);
+             mEmail.setText(userInfo[USER_EMAIL]);
+             mName.setText(userInfo[USER_NAME]);
+             mBalance.setText(userInfo[USER_BALANCE]);
+             mBonus.setText(userInfo[USER_BONUS]);
+             return LOADED_FROM_DB;
+         }
     }
 
     @Override
