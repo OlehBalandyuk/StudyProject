@@ -1,4 +1,4 @@
-package com.olehbalandyuk.studyproject.application.ui.fragments;
+package com.olehbalandyuk.studyproject.application.ui.fragments.contacts;
 
 import android.support.v4.app.Fragment;
 

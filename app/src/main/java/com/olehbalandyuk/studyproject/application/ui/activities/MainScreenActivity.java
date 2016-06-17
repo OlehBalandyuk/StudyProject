@@ -14,10 +14,10 @@ import android.view.MenuItem;
 
 import com.olehbalandyuk.studyproject.R;
 import com.olehbalandyuk.studyproject.application.http.UserDetails;
-import com.olehbalandyuk.studyproject.application.ui.fragments.CabinetFragment;
-import com.olehbalandyuk.studyproject.application.ui.fragments.ContactsFragment;
-import com.olehbalandyuk.studyproject.application.ui.fragments.CurrentPacketFragment;
-import com.olehbalandyuk.studyproject.application.ui.fragments.MessagesFragment;
+import com.olehbalandyuk.studyproject.application.ui.fragments.cabinet.CabinetFragment;
+import com.olehbalandyuk.studyproject.application.ui.fragments.contacts.ContactsFragment;
+import com.olehbalandyuk.studyproject.application.ui.fragments.current_packet.CurrentPacketFragment;
+import com.olehbalandyuk.studyproject.application.ui.fragments.messages.MessagesFragment;
 
 public class MainScreenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

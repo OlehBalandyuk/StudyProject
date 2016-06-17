@@ -24,16 +24,48 @@
     <dimen name="cabinet_recycler_view_image_size">80dp</dimen>
 
     <!-- Fragment Cabinet dimens -->
-    <dimen name="fragment_cabinet_container_padding">6dp</dimen>
-    <dimen name="fragment_cabinet_container_margin">8dp</dimen>
-    <dimen name="fragment_cabinet_container_corners_rounding">4dp</dimen>
-    <dimen name="fragment_cabinet_container_height">100dp</dimen>
-    <dimen name="fragment_cabinet_shadow_width">12dp</dimen>
-    <dimen name="fragment_cabinet_text_fields_side_margin">18dp</dimen>
-    <dimen name="fragment_cabinet_text_fields_top_margin">4dp</dimen>
-    <dimen name="fragment_cabinet_id_text_size">18sp</dimen>
-    <dimen name="fragment_cabinet_id_padding">4dp</dimen>
-    <dimen name="fragment_cabinet_date_text_size">14sp</dimen>
-    <dimen name="fragment_cabinet_title_text_size">20sp</dimen>
+    <dimen name="cabinet_container_padding">6dp</dimen>
+    <dimen name="cabinet_container_margin">8dp</dimen>
+    <dimen name="cabinet_container_corners_rounding">4dp</dimen>
+    <dimen name="cabinet_container_height">100dp</dimen>
+    <dimen name="cabinet_shadow_width">12dp</dimen>
+    <dimen name="cabinet_text_fields_side_margin">18dp</dimen>
+    <dimen name="cabinet_text_fields_top_margin">4dp</dimen>
+    <dimen name="cabinet_id_text_size">18sp</dimen>
+    <dimen name="cabinet_id_padding">4dp</dimen>
+    <dimen name="cabinet_date_text_size">14sp</dimen>
+    <dimen name="cabinet_title_text_size">20sp</dimen>
+
+    <!-- Fragment Current Packet dimens -->
+    <!-- Current Packet main layout dimens -->
+    <dimen name="fab_spacing">0dp</dimen>
+    <dimen name="fab_list_spacing">88dp</dimen>
+    <dimen name="sheet_width">210dp</dimen>
+    <dimen name="sheet_spacing">10dp</dimen>
+    <dimen name="sheet_item_spacing">16dp</dimen>
+    <dimen name="sheet_item_image_spacing">24dp</dimen>
+    <dimen name="sheet_item_textsize">16sp</dimen>
+    <dimen name="snackbar_height">48dp</dimen>
+    <dimen name="snackbar_spacing">24dp</dimen>
+    <dimen name="snackbar_textsize">14sp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="fab_elevation">0dp</dimen>
+    <dimen name="fab_sheet_elevation">0dp</dimen>
+    <dimen name="note_spacing">4dp</dimen>
+    <dimen name="note_content_spacing">16dp</dimen>
+    <dimen name="note_corner_radius">2dp</dimen>
+    <dimen name="note_textsize">14sp</dimen>
+    <dimen name="note_title_textsize">24sp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+
+    <!-- Current Packet content layout dimens -->
+    <dimen name="current_packet_logo_params">90dp</dimen>
+    <dimen name="current_packet_available_png_params">25dp</dimen>
+    <dimen name="current_packet_channels_details_container_padding">4dp</dimen>
+    <dimen name="current_packet_title_text_size">18sp</dimen>
+    <dimen name="current_packet_additional_text_size">16sp</dimen>
+    <dimen name="current_packet_favorite_params">48dp</dimen>
+    <dimen name="current_packet_info_text_size">14sp</dimen>
+    <dimen name="current_packet_favorite_padding">6dip</dimen>
 
 </resources>

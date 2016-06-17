@@ -1,6 +1,6 @@
-package com.olehbalandyuk.studyproject.application.ui.fragments;
+package com.olehbalandyuk.studyproject.application.ui.fragments.cabinet;
 
-class RecyclerViewModel {
+class CabinetRecyclerViewModel {
 
     private String mId;
     private String mDate;

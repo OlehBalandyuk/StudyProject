@@ -92,12 +92,12 @@
     <style name="fragment_cabinet_id_style">
         <item name="android:padding">4dp</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">@dimen/fragment_cabinet_id_text_size</item>
+        <item name="android:textSize">@dimen/cabinet_id_text_size</item>
     </style>
 
     <style name="fragment_cabinet_date_style">
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">@dimen/fragment_cabinet_date_text_size</item>
+        <item name="android:textSize">@dimen/cabinet_date_text_size</item>
     </style>
 
     <style name="fragment_cabinet_title_style">
@@ -106,7 +106,109 @@
         <item name="android:padding">4dp</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">@dimen/fragment_cabinet_title_text_size</item>
+        <item name="android:textSize">@dimen/cabinet_title_text_size</item>
     </style>
 
+    <!-- Fragment Current Packet styles -->
+    <!-- Current Packet main layout styles -->
+    <style name="Widget.MaterialSheetFab.Sheet" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/sheet_spacing</item>
+        <item name="android:layout_marginBottom">@dimen/sheet_spacing</item>
+        <item name="android:layout_marginLeft">@dimen/sheet_spacing</item>
+        <item name="android:layout_marginRight">@dimen/sheet_spacing</item>
+        <item name="cardBackgroundColor">@color/background_card</item>
+        <item name="cardElevation">@dimen/fab_sheet_elevation</item>
+        <item name="cardMaxElevation">@dimen/fab_sheet_elevation</item>
+        <item name="contentPadding">-3dp</item>
+    </style>
+
+    <style name="TextAppearance.MaterialSheetFab.Sheet.Item" parent="">
+        <item name="android:layout_width">@dimen/sheet_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/sheet_item_spacing</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textSize">@dimen/sheet_item_textsize</item>
+        <item name="android:textColor">@color/text_black_87</item>
+        <item name="android:drawablePadding">@dimen/sheet_item_image_spacing</item>
+    </style>
+
+    <style name="all_channels_style"
+        parent="TextAppearance.MaterialSheetFab.Sheet.Item">
+        <item name="android:drawableLeft">@drawable/current_packet_all_channels</item>
+        <item name="android:drawableStart">@drawable/current_packet_all_channels</item>
+        <item name="android:text">@string/all_channels</item>
+    </style>
+
+    <style name="favorite_channels_style"
+        parent="TextAppearance.MaterialSheetFab.Sheet.Item">
+        <item name="android:drawableLeft">@drawable/current_packet_favorite_channels</item>
+        <item name="android:drawableStart">@drawable/current_packet_favorite_channels</item>
+        <item name="android:text">@string/favorite_channels</item>
+    </style>
+
+    <style name="available_channels_style"
+        parent="TextAppearance.MaterialSheetFab.Sheet.Item">
+        <item name="android:drawableLeft">@drawable/current_packet_available_channels</item>
+        <item name="android:drawableStart">@drawable/current_packet_available_channels</item>
+        <item name="android:text">@string/available_channels</item>
+    </style>
+
+    <style name="censored_channels_style"
+        parent="TextAppearance.MaterialSheetFab.Sheet.Item">
+        <item name="android:drawableLeft">@drawable/current_packet_censored_channels</item>
+        <item name="android:drawableStart">@drawable/current_packet_censored_channels</item>
+        <item name="android:text">@string/censored_channels</item>
+    </style>
+
+    <!-- Current Packet content layout styles -->
+    <style name="channel_available_style">
+        <item name="android:src">@drawable/channel_is_available</item>
+        <item name="android:background">@android:drawable/screen_background_light_transparent</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="channel_details_style">
+        <item name="android:paddingLeft">@dimen/current_packet_channels_details_container_padding</item>
+        <item name="android:paddingRight">@dimen/current_packet_channels_details_container_padding</item>
+    </style>
+    
+    <style name="channel_title_style">
+        <item name="android:textSize">@dimen/current_packet_title_text_size</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="channels_number_style">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/current_packet_additional_text_size</item>
+    </style>
+    
+    <style name="channels_separator_style">
+        <item name="android:text">@string/separator</item>
+        <item name="android:textSize">@dimen/current_packet_additional_text_size</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    
+    <style name="channels_genre_style">
+        <item name="android:textSize">@dimen/current_packet_additional_text_size</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="channels_info_style">
+        <item name="android:textSize">@dimen/current_packet_info_text_size</item>
+        <item name="android:textColor">@color/strong_grey</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
 </resources>

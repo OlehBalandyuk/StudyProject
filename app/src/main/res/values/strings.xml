@@ -41,7 +41,11 @@
         <item>Contacts</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Fragment Current Packet strings -->
+    <string name="all_channels">All</string>
+    <string name="favorite_channels">Favorite</string>
+    <string name="available_channels">Available</string>
+    <string name="censored_channels">Censored</string>
+    <string name="separator">,\t</string>
 
 </resources>

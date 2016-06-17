@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#569962</color>
     <color name="colorPrimaryDark">#569962</color>
-    <color name="colorAccent">#cc42ab54</color>
-    <color name="colorForeground">#db73ca83</color>
+    <color name="colorAccent">#42ab54</color>
+    <color name="colorForeground">#73ca83</color>
 
     <!-- Color for fullscreen activity -->
     <color name="black_overlay">#66000000</color>
@@ -16,5 +16,26 @@
 
     <!-- Activity Login colors -->
     <color name="activity_login_fields_color">#fffce8</color>
+
+    <!-- Fragment Current Packet colors -->
+    <color name="theme_primary">#00BCD4</color>
+    <color name="theme_primary_dark">#0097A7</color>
+    <color name="theme_primary_dark2">#006064</color>
+    <color name="theme_accent">#FFEB3B</color>
+    <color name="background_card">#fff</color>
+    <color name="background_snackbar">#323232</color>
+    <color name="text_black_87">#de000000</color>
+    <color name="text_white_87">#deFFFFFF</color>
+    <array name="note_neutral_colors">
+        <item>#9E9E9E</item>
+        <item>#455A64</item>
+        <item>#607D8B</item>
+    </array>
+    <array name="note_accent_colors">
+        <item>#039BE5</item>
+        <item>#3D51B3</item>
+        <item>#689f38</item>
+        <item>#FD7044</item>
+    </array>
 
 </resources>
