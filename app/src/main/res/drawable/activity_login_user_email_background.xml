@@ -7,14 +7,14 @@
     </item>
 
     <item
-        android:top="@dimen/activity_login_stroke_disabling"
-        android:right="@dimen/activity_login_stroke_disabling"
-        android:left="@dimen/activity_login_stroke_disabling"
-        android:bottom="@dimen/activity_login_stroke_enabling">
+        android:top="@dimen/login_stroke_disabling"
+        android:right="@dimen/login_stroke_disabling"
+        android:left="@dimen/login_stroke_disabling"
+        android:bottom="@dimen/login_stroke_enabling">
         <shape>
             <solid android:color="@android:color/transparent" />
             <stroke
-                android:width="@dimen/activity_login_stroke_width"
+                android:width="@dimen/login_stroke_width"
                 android:color="@color/grey" />
         </shape>
     </item>

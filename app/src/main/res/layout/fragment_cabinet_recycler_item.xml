@@ -3,8 +3,9 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/cabinet_container_corners_rounding">
-    <!-- app:cardElevation="@dimen/activity_vertical_margin" -->
+    app:cardCornerRadius="@dimen/cabinet_container_corners_rounding"
+    android:layout_margin="@dimen/cabinet_container_margin"
+    app:cardElevation="@dimen/cabinet_container_elevation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
 
         <ImageView
             android:id="@+id/fragment_cabinet_packet_image"
-            android:layout_width="@dimen/cabinet_container_height"
+            android:layout_width="@dimen/cabinet_image_size"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:src="@drawable/packet" />
@@ -38,18 +39,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"/>
-            <TextView
-                android:id="@+id/fragment_cabinet_packet_date"
-                style="@style/fragment_cabinet_date_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_alignBottom="@+id/fragment_cabinet_packet_id"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/fragment_cabinet_packet_id"
-                android:layout_toEndOf="@+id/fragment_cabinet_packet_id"/>
 
             <TextView
                 android:id="@+id/fragment_cabinet_packet_title"
@@ -57,11 +46,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
+                android:layout_alignBottom="@+id/fragment_cabinet_packet_id"
+                android:layout_toRightOf="@+id/fragment_cabinet_packet_id"
+                android:layout_toEndOf="@+id/fragment_cabinet_packet_id" />
+
+            <TextView
+                android:id="@+id/fragment_cabinet_packet_date_end"
+                style="@style/fragment_cabinet_date_style"
+                android:text="@string/cabinet_packet_date_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/fragment_cabinet_packet_date"
+                android:layout_toStartOf="@+id/fragment_cabinet_packet_date"/>
+
+            <TextView
+                android:id="@+id/fragment_cabinet_packet_date"
+                style="@style/fragment_cabinet_date_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentEnd="true" />
+
+
 
         </RelativeLayout>
 

@@ -4,11 +4,11 @@
     <item>
         <shape>
             <solid android:color="@color/activity_login_fields_color"/>
-            <corners android:bottomRightRadius="@dimen/activity_login_fields_simulate_corners"
-                android:bottomLeftRadius="@dimen/activity_login_fields_simulate_corners"
-                android:topLeftRadius="@dimen/activity_login_fields_rounding"
-                android:topRightRadius="@dimen/activity_login_fields_rounding"
-                android:radius="@dimen/activity_login_fields_rounding_radius"/>
+            <corners android:bottomRightRadius="@dimen/login_fields_simulate_corners"
+                android:bottomLeftRadius="@dimen/login_fields_simulate_corners"
+                android:topLeftRadius="@dimen/login_fields_rounding"
+                android:topRightRadius="@dimen/login_fields_rounding"
+                android:radius="@dimen/login_fields_rounding_radius"/>
         </shape>
     </item>
 </selector>

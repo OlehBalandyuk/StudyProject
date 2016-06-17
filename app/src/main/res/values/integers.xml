@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fragment Cabinet ints -->
+    <integer name="cabinet_date_max_length">16</integer>
+</resources>

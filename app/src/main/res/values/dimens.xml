@@ -9,31 +9,34 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- Activity Login dimens -->
-    <dimen name="activity_login_fields_rounding">15dp</dimen>
-    <dimen name="activity_login_fields_rounding_radius">8dp</dimen>
-    <dimen name="activity_login_fields_simulate_corners" type="dimen" format="float">0.1dp</dimen>
-    <dimen name="activity_login_stroke_disabling">-2dp</dimen>
-    <dimen name="activity_login_stroke_enabling">0.1dp</dimen>
-    <dimen name="activity_login_stroke_width">1dp</dimen>
-    <dimen name="activity_login_layouts_padding">16dp</dimen>
-    <dimen name="activity_login_fields_text_size">14sp</dimen>
-    <dimen name="activity_login_button_top_margin">16dp</dimen>
+    <dimen name="login_fields_rounding">15dp</dimen>
+    <dimen name="login_fields_rounding_radius">8dp</dimen>
+    <dimen name="login_fields_simulate_corners" type="dimen" format="float">0.1dp</dimen>
+    <dimen name="login_stroke_disabling">-2dp</dimen>
+    <dimen name="login_stroke_enabling">0.1dp</dimen>
+    <dimen name="login_stroke_width">1dp</dimen>
+    <dimen name="login_layouts_padding">16dp</dimen>
+    <dimen name="login_fields_text_size">14sp</dimen>
+    <dimen name="login_button_top_margin">16dp</dimen>
 
     <!-- Activity Main Screen dimens -->
-    <dimen name="activity_main_screen_toolbar_text_size">20sp</dimen>
-    <dimen name="cabinet_recycler_view_image_size">80dp</dimen>
+    <dimen name="main_screen_toolbar_text_size">20sp</dimen>
 
     <!-- Fragment Cabinet dimens -->
+    <dimen name="cabinet_container_margin">4dp</dimen>
+    <dimen name="cabinet_container_elevation">4dp</dimen>
     <dimen name="cabinet_container_padding">6dp</dimen>
-    <dimen name="cabinet_container_margin">8dp</dimen>
     <dimen name="cabinet_container_corners_rounding">4dp</dimen>
     <dimen name="cabinet_container_height">100dp</dimen>
     <dimen name="cabinet_shadow_width">12dp</dimen>
+    <dimen name="cabinet_image_size">80dp</dimen>
     <dimen name="cabinet_text_fields_side_margin">18dp</dimen>
     <dimen name="cabinet_text_fields_top_margin">4dp</dimen>
     <dimen name="cabinet_id_text_size">18sp</dimen>
     <dimen name="cabinet_id_padding">4dp</dimen>
+    <dimen name="cabinet_id_margin_right">16dp</dimen>
     <dimen name="cabinet_date_text_size">14sp</dimen>
+
     <dimen name="cabinet_title_text_size">20sp</dimen>
 
     <!-- Fragment Current Packet dimens -->
@@ -67,5 +70,6 @@
     <dimen name="current_packet_favorite_params">48dp</dimen>
     <dimen name="current_packet_info_text_size">14sp</dimen>
     <dimen name="current_packet_favorite_padding">6dip</dimen>
+
 
 </resources>

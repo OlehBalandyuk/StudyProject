@@ -41,6 +41,9 @@
         <item>Contacts</item>
     </string-array>
 
+    <!-- Fragment Cabinet strings -->
+    <string name="cabinet_packet_date_end">Date end:\t</string>
+
     <!-- Fragment Current Packet strings -->
     <string name="all_channels">All</string>
     <string name="favorite_channels">Favorite</string>

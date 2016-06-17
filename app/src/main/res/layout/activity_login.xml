@@ -23,7 +23,7 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:orientation="vertical"
-        android:padding="@dimen/activity_login_layouts_padding">
+        android:padding="@dimen/login_layouts_padding">
 
         <EditText
             android:id="@+id/login_field"
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/activity_login_button_top_margin"
+            android:layout_marginTop="@dimen/login_button_top_margin"
 
             custom:pb_colorComplete="@color/green_complete"
             custom:pb_colorError="@color/red_error"
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:padding="@dimen/activity_login_layouts_padding">
+            android:padding="@dimen/login_layouts_padding">
 
             <TextView
                 android:id="@+id/remind_password"

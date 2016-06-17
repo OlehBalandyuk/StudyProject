@@ -39,7 +39,7 @@
 
     <style name="fields_style" parent="Base.Widget.AppCompat.EditText">
         <item name="android:ems">5</item>
-        <item name="android:textSize">@dimen/activity_login_fields_text_size</item>
+        <item name="android:textSize">@dimen/login_fields_text_size</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
@@ -90,23 +90,24 @@
 
     <!-- Fragment Cabinet styles -->
     <style name="fragment_cabinet_id_style">
-        <item name="android:padding">4dp</item>
-        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:padding">@dimen/cabinet_id_padding</item>
+        <item name="android:layout_marginRight">@dimen/cabinet_id_margin_right</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">@dimen/cabinet_id_text_size</item>
     </style>
 
     <style name="fragment_cabinet_date_style">
-        <item name="android:gravity">center_vertical</item>
+        <item name="android:gravity">end</item>
         <item name="android:textSize">@dimen/cabinet_date_text_size</item>
         <item name="android:singleLine">true</item>
         <item name="android:scrollHorizontally">true</item>
         <item name="android:ellipsize">marquee</item>
+        <item name="android:maxLength">@integer/cabinet_date_max_length</item>
     </style>
 
     <style name="fragment_cabinet_title_style">
         <item name="android:ellipsize">end</item>
-        <item name="android:gravity">center_horizontal</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:padding">4dp</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/black</item>
