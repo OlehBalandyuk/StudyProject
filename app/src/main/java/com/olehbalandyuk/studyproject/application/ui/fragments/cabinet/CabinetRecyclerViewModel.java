@@ -10,7 +10,7 @@ class CabinetRecyclerViewModel {
         mId = id;
     }
 
-    void setDate(String date) {
+    void setDateEnd(String date) {
         mDate = date;
     }
 

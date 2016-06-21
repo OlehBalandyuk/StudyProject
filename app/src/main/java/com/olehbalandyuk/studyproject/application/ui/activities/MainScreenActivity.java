@@ -33,12 +33,9 @@ public class MainScreenActivity extends AppCompatActivity
     private static final int CONTACTS = 3;
 
     private static final int USER_ID = 0;
-    private static final int USER_EMAIL = 0;
-    private static final int USER_NAME = 0;
-    private static final int USER_BALANCE = 0;
-    private static final int USER_BONUS = 0;
-
-    private static final boolean LOADED_FROM_DB = false;
+    private static final int USER_EMAIL = 1;
+    private static final int USER_BALANCE = 3;
+    private static final int USER_BONUS = 4;
 
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
@@ -46,15 +43,12 @@ public class MainScreenActivity extends AppCompatActivity
 
     private TextView mEmail;
     private TextView mId;
-    private TextView mName;
     private TextView mBalance;
     private TextView mBonus;
 
-    private boolean isLogged;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.v(TAG, ">> Method: onCreate()");
+        Log.v(TAG, ">> Method: onCreate(Bundle)");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
@@ -70,10 +64,12 @@ public class MainScreenActivity extends AppCompatActivity
 
         initNavigationViewWidgets();
 
-        Log.v(TAG, "<< Method: onCreate()");
+        Log.v(TAG, "<< Method: onCreate(Bundle)");
     }
 
     private void initNavigationViewWidgets() {
+        Log.v(TAG, ">> initNavigationViewWidgets()");
+
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         if (mNavigationView != null) {
             mNavigationView.setNavigationItemSelectedListener(this);
@@ -82,16 +78,17 @@ public class MainScreenActivity extends AppCompatActivity
         View header = mNavigationView.getHeaderView(0);
         mEmail = (TextView) header.findViewById(R.id.nav_header_user_email);
         mId = (TextView) header.findViewById(R.id.nav_header_user_id);
-        mName = (TextView) header.findViewById(R.id.nav_header_user_name);
         mBalance = (TextView) header.findViewById(R.id.nav_header_user_balance);
         mBonus = (TextView) header.findViewById(R.id.nav_header_user_bonus);
+
+        Log.v(TAG, "<< initNavigationViewWidgets()");
     }
 
     public void onResume() {
         super.onResume();
         Log.v(TAG, ">> Method: onResume()");
 
-        isLogged = UserDetails.isLoggedByLogin(this);
+        boolean isLogged = UserDetails.isLoggedByLogin(this);
         Log.v(TAG, "--> Method: onResume(), is logged = " + isLogged);
 
         if (isLogged) {
@@ -104,27 +101,40 @@ public class MainScreenActivity extends AppCompatActivity
     }
 
     private void loadUserInfo() {
-//        if (!loadUserInfoFromDB()) {
-//            loadUserInfoFromServer();
-//        }
+        Log.v(TAG, ">> loadUserInfo()");
+
+        if (!loadUserInfoFromDB()) {
+            loadUserInfoFromServer();
+        }
+
+        Log.v(TAG, "<< loadUserInfo()");
     }
 
     private void loadUserInfoFromServer() {
+        Log.v(TAG, ">> MethodL loadUserInfoFromServer()");
 
+        Log.v(TAG, "--> MethodL loadUserInfoFromServer(), TODO load by request");
+
+        Log.v(TAG, "<< MethodL loadUserInfoFromServer()");
     }
 
     private boolean loadUserInfoFromDB() {
+        Log.v(TAG, ">> Method: loadUserInfoFromDB()");
+        boolean userDataIsLoaded = true;
         String[] userInfo = DatabaseConnector.loadUserInfo(this);
 
          if (userInfo[USER_ID].equals("null")) {
-             return !LOADED_FROM_DB;
+             Log.v(TAG, "--> Method: loadUserInfoFromDB(), no user info in the database");
+             Log.v(TAG, "<< Method: loadUserInfoFromDB()");
+             return !userDataIsLoaded;
          } else {
+             Log.v(TAG, "--> Method: loadUserInfoFromDB(), loading user info from the database");
              mId.setText(userInfo[USER_ID]);
              mEmail.setText(userInfo[USER_EMAIL]);
-             mName.setText(userInfo[USER_NAME]);
              mBalance.setText(userInfo[USER_BALANCE]);
              mBonus.setText(userInfo[USER_BONUS]);
-             return LOADED_FROM_DB;
+             Log.v(TAG, "<< Method: loadUserInfoFromDB()");
+             return userDataIsLoaded;
          }
     }
 
@@ -144,7 +154,7 @@ public class MainScreenActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        Log.v(TAG, ">> Method: onNavigationItemSelected()");
+        Log.v(TAG, ">> Method: onNavigationItemSelected(MenuItem)");
         int id = item.getItemId();
         String[] titles = getResources().getStringArray(R.array.fragments);
         Fragment fragment = null;
@@ -176,20 +186,20 @@ public class MainScreenActivity extends AppCompatActivity
 
         closeDrawer();
 
-        Log.v(TAG, "<< Method: onNavigationItemSelected()");
+        Log.v(TAG, "<< Method: onNavigationItemSelected(MenuItem)");
         return true;
     }
 
 
     private void addFragment(Fragment fragment) {
-        Log.v(TAG, ">> Method: addFragment()");
+        Log.v(TAG, ">> Method: addFragment(Fragment)");
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
 
-        Log.v(TAG, "<< Method: addFragment()");
+        Log.v(TAG, "<< Method: addFragment(Fragment)");
     }
 
     private void redirectToLoginActivity() {
@@ -209,4 +219,5 @@ public class MainScreenActivity extends AppCompatActivity
     private boolean drawerIsOpened() {
         return mDrawer.isDrawerOpen(GravityCompat.START);
     }
+
 }

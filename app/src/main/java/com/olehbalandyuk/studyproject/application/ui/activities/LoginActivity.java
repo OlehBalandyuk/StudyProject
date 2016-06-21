@@ -4,11 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.olehbalandyuk.studyproject.R;
@@ -17,6 +19,9 @@ import com.olehbalandyuk.studyproject.application.http.NetworkService;
 import com.olehbalandyuk.studyproject.application.utils.NetworkState;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static com.olehbalandyuk.studyproject.application.API.FORGOT_PASSWORD_URL;
+import static com.olehbalandyuk.studyproject.application.API.REGISTER_URL;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -39,6 +44,8 @@ public class LoginActivity extends AppCompatActivity {
     private ActionProcessButton mLogin;
     private String mUsername;
     private String mPassword;
+    private TextView mForgotPassword;
+    private TextView mCreateAccount;
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -64,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.v(TAG, ">> Method: onCreate()");
+        Log.v(TAG, ">> Method: onCreate(Bundle)");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -75,17 +82,26 @@ public class LoginActivity extends AppCompatActivity {
         mLogin = (ActionProcessButton) findViewById(R.id.login_button);
         handleLoginButton();
 
+        mForgotPassword = (TextView) findViewById(R.id.forgot_password);
+        setForgotPasswordOnClickListener();
+
+        mCreateAccount = (TextView) findViewById(R.id.create_account);
+        setCreateAccountOnClickListener();
+
         if (savedInstanceState != null) {
             mUsername = savedInstanceState.getString(USERNAME_KEY);
+            setUserNameText();
+
             mPassword = savedInstanceState.getString(PASSWORD_KEY);
+            setPasswordText();
             mLogin.setProgress(savedInstanceState.getInt(LOGIN_PROGRESS));
         }
 
-        Log.v(TAG, "<< Method: onCreate()");
+        Log.v(TAG, "<< Method: onCreate(Bundle)");
     }
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        Log.v(TAG, ">> Method: onSaveInstanceState()");
+        Log.v(TAG, ">> Method: onSaveInstanceState(Bundle)");
 
         mUsername = mUsernameField.getText().toString();
         mPassword = mPasswordField.getText().toString();
@@ -94,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         savedInstanceState.putString(PASSWORD_KEY, mPassword);
         savedInstanceState.putInt(LOGIN_PROGRESS, mLogin.getProgress());
 
-        Log.v(TAG, "<< Method: onSaveInstanceState()");
+        Log.v(TAG, "<< Method: onSaveInstanceState(Bundle)");
     }
 
     private void handleLoginButton() {
@@ -209,5 +225,40 @@ public class LoginActivity extends AppCompatActivity {
         showNetworkErrorDialog();
         mLogin.setMode(ActionProcessButton.Mode.PROGRESS);
         Log.v(TAG, "<< Method: abortSendingRequest()");
+    }
+
+    private void setForgotPasswordOnClickListener() {
+        mForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent forgotPasswordRedirect = new Intent(Intent.ACTION_VIEW, Uri.parse(FORGOT_PASSWORD_URL));
+                startActivity(forgotPasswordRedirect);
+            }
+        });
+    }
+
+    private void setCreateAccountOnClickListener() {
+        mCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent createAccountRedirect = new Intent(Intent.ACTION_VIEW, Uri.parse(REGISTER_URL));
+                startActivity(createAccountRedirect);
+            }
+        });
+    }
+
+    private void setUserNameText() {
+        if (mUsername != null && !mUsername.equals("")) {
+            mUsernameField.setText(mUsername);
+            mUsernameField.setSelection(mUsername.length());
+        }
+    }
+
+    private void setPasswordText() {
+        if (mPassword != null && !mPassword.equals("")) {
+            mPasswordField.setText(mPassword);
+            mPasswordField.setSelection(mPassword.length());
+            mPasswordField.requestFocus();
+        }
     }
 }

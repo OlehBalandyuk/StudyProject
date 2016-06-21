@@ -40,6 +40,8 @@ public class NetworkService extends Service {
     }
 
     public int onStartCommand(Intent intent, int flag, int startId) {
+        Log.v(TAG, ">> Method: onStartCommand(Intent, int, int)");
+
         if (intent == null) return super.onStartCommand(null, flag, startId);
 
         ServiceRequests requestType = (ServiceRequests) intent.getSerializableExtra(REQUEST);
@@ -68,11 +70,12 @@ public class NetworkService extends Service {
                 break;
         }
 
+        Log.v(TAG, "<< Method: onStartCommand(Intent, int, int)");
         return super.onStartCommand(intent, flag, startId);
     }
 
     private void handleAuthorizeResponse(AuthorizeResultModel response) {
-        Log.v(TAG, ">> Method: handleResponse()");
+        Log.v(TAG, ">> Method: handleResponse(AuthorizeResultModel)");
 
         if (response.getLoginAccessToken() != null) {
             Tokens tokens = new Tokens(getApplicationContext());
@@ -86,7 +89,7 @@ public class NetworkService extends Service {
             sendBroadcast(BAD_REQUEST, response);
         }
 
-        Log.v(TAG, "<< Method: handleResponse()");
+        Log.v(TAG, "<< Method: handleResponse(AuthorizeResultModel)");
     }
 
     private void handleError(Errors error) {
@@ -94,14 +97,18 @@ public class NetworkService extends Service {
     }
 
     private void sendBroadcast(int status, Serializable response) {
+        Log.v(TAG, ">> Method: sendBroadcast(int, Serializable)");
+
         Intent intent = new Intent(BROADCAST_ACTION);
         intent.putExtra(HTTP_STATUS, status);
         intent.putExtra(RESPONSE, response);
         sendBroadcast(intent);
+
+        Log.v(TAG, "<< Method: sendBroadcast(int, Serializable)");
     }
 
     private static String authorizeUser(String email, String password) {
-        Log.v(TAG, ">> Method: authorizeUser()");
+        Log.v(TAG, ">> Method: authorizeUser(String, String)");
 
         Uri.Builder builder = new Uri.Builder()
                 .appendQueryParameter(GRANT_TYPE, PASSWORD_PARAM)
@@ -110,15 +117,18 @@ public class NetworkService extends Service {
 
         String encodedQuery = builder.build().getEncodedQuery();
 
-        Log.v(TAG, "<< Method: authorizeUser()");
+        Log.v(TAG, "<< Method: authorizeUser(String, String)");
         return encodedQuery;
     }
 
     public static void authorizeUser(Context context, String email, String password) {
-        Intent result = new Intent(context, NetworkService.class);
+        Log.v(TAG, ">> Method: authorizeUser(Context, String, String");
 
+        Intent result = new Intent(context, NetworkService.class);
         result.putExtra(QUERY, authorizeUser(email, password));
         result.putExtra(REQUEST, ServiceRequests.AUTHORIZE_IN_APP);
         context.startService(result);
+
+        Log.v(TAG, "<< Method: authorizeUser(Context, String, String");
     }
 }

@@ -18,22 +18,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database name and version
     // Database version should be incremented each time the database is changed
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "user_info.db";
 
     // Table, which contains user's logged state
-    public static final String LOGGED_STATE_TABLE = "logged_table";
-    public static final String LOGGED_IN_APP = "is_logged";
-    public static final String LOGGED_IN_PACKED = "is_logged_by_packet";
+    static final String LOGGED_STATE_TABLE = "logged_table";
+    static final String LOGGED_IN_APP = "is_logged";
+    static final String LOGGED_IN_PACKED = "is_logged_by_packet";
 
     //Table, which contains tokens
-    public static final String TOKENS_TABLE = "tokens";
-    public static final String LOGIN_ACCESS_TOKEN = "login_token";
-    public static final String LOGIN_REFRESH_TOKEN = "refresh_token";
-    public static final String PACKET_ACCESS_TOKEN = "access_token";
-    public static final String PACKET_REFRESH_TOKEN = "packet_refresh_token";
-
-    // Table, which contains user data
+    static final String TOKENS_TABLE = "tokens";
+    static final String LOGIN_ACCESS_TOKEN = "login_token";
+    static final String LOGIN_REFRESH_TOKEN = "refresh_token";
+    static final String PACKET_ACCESS_TOKEN = "access_token";
+    static final String PACKET_REFRESH_TOKEN = "packet_refresh_token";
 
     /**
      * Name of user info table.
@@ -46,39 +44,73 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @see #USER_EMAIL
      * @see #USER_NAME
      * @see #USER_BALANCE
-     * @see  #USER_BONUS
+     * @see #USER_BONUS
      */
-    public static final String USER_INFO_TABLE = "info";
-    public static final String USER_ID = "_id";
-    public static final String USER_EMAIL = "email";
-    public static final String USER_NAME = "name";
-    public static final String USER_BALANCE = "balance";
-    public static final String USER_BONUS = "bonus";
+    static final String USER_INFO_TABLE = "info";
+    static final String USER_ID = "id";
+    static final String USER_EMAIL = "email";
+    static final String USER_NAME = "name";
+    static final String USER_BALANCE = "balance";
+    static final String USER_BONUS = "bonus";
 
-    // Table, which contains packet data
-    public static final String PACKET_TABLE = "packets";
-    public static final String PACKET_ID = "packet_id";
-    public static final String PACKET_NAME = "packet_name";
-    public static final String PACKET_PASSWORD = "packet_password";
-    public static final String PACKET_DATE_END = "packet_date_end";
-    public static final String PACKET_STATUS = "packet_status";
-    public static final String PACKET_USER_EMAIL = "packet_user_id";
+    /**
+     * Name of packet info table.
+     *
+     *
+     * <br/>
+     * Table contains such columns as: id, title, password, date end, status.
+     * <br/>
+     * @see #PACKET_ID
+     * @see #PACKET_TITLE
+     * @see #PACKET_PASSWORD
+     * @see #PACKET_DATE_END
+     * @see #PACKET_STATUS
+     */
+    static final String PACKET_TABLE = "packets";
+    static final String PACKET_ID = "id";
+    static final String PACKET_TITLE = "title";
+    static final String PACKET_PASSWORD = "password";
+    static final String PACKET_DATE_END = "date_end";
+    static final String PACKET_STATUS = "status";
+    private static final String PACKET_USER_EMAIL = "user_email";
 
-    // Table, which contains tv channel's data
-    public static final String CHANNELS_TABLE = "tv_channels";
-    public static final String CHANNEL_ID = "_id";
-    public static final String CHANNEL_URL = "url";
-    public static final String CHANNEL_NAME = "name";
-    public static final String CHANNEL_GENRE_ID = "genre_id";
-    public static final String CHANNEL_NUMBER = "number";
-    public static final String CHANNEL_ARCHIVE = "archive";
-    public static final String CHANNEL_ARCHIVE_RANGE = "archive_range";
-    public static final String CHANNEL_PVR = "pvr";
-    public static final String CHANNEL_CENSORED = "censored";
-    public static final String CHANNEL_FAVORITE = "favorite";
-    public static final String CHANNEL_LOGO = "logo";
-    public static final String CHANNEL_MONITORING_STATUS = "monitoring_status";
-    public static final String CHANNEL_PACKET_ID = "packet_id";
+    /**
+     * Name of channels info table.
+     *
+     *
+     * <br/>
+     * Table contains such columns as: id, url, title, genre id, number, archive, archive range,
+     * prv (no idea what is it), censored (boolean), favorite(boolean), logo, date end,
+     * monitoring_status(boolean).
+     * <br/>
+     * @see #CHANNEL_ID
+     * @see #CHANNEL_URL
+     * @see #CHANNEL_TITLE
+     * @see #CHANNEL_GENRE_ID
+     * @see #CHANNEL_NUMBER
+     * @see #CHANNEL_ARCHIVE
+     * @see #CHANNEL_ARCHIVE_RANGE
+     * @see #CHANNEL_PVR
+     * @see #CHANNEL_CENSORED
+     * @see #CHANNEL_FAVORITE
+     * @see #CHANNEL_LOGO
+     * @see #CHANNEL_MONITORING_STATUS
+     *
+     */
+    static final String CHANNELS_TABLE = "tv_channels";
+    static final String CHANNEL_ID = "_id";
+    static final String CHANNEL_URL = "url";
+    static final String CHANNEL_TITLE = "title";
+    static final String CHANNEL_GENRE_ID = "genre_id";
+    static final String CHANNEL_NUMBER = "number";
+    static final String CHANNEL_ARCHIVE = "archive";
+    static final String CHANNEL_ARCHIVE_RANGE = "archive_range";
+    static final String CHANNEL_PVR = "pvr";
+    static final String CHANNEL_CENSORED = "censored";
+    static final String CHANNEL_FAVORITE = "favorite";
+    static final String CHANNEL_LOGO = "logo";
+    static final String CHANNEL_MONITORING_STATUS = "monitoring_status";
+    private static final String CHANNEL_PACKET_ID = "packet_id";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -103,8 +135,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    static void logout (SQLiteDatabase database) {
+        dropExistingTables(database);
+
+        declareTokensTable(database);
+        declareUserDataTable(database);
+        declareLoggedStateTable(database);
+        declarePacketTable(database);
+        declareChannelsTable(database);
+
+        fillDatabaseWithDefaultValues(database);
+
+    }
+
     // Creating logged state table in the database
-    private void declareLoggedStateTable(SQLiteDatabase db) {
+    private static void declareLoggedStateTable(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + LOGGED_STATE_TABLE + "(" +
                 LOGGED_IN_APP + " TEXT, " +
                 LOGGED_IN_PACKED + " TEXT " +
@@ -112,7 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Creating Token's table in the database
-    private void declareTokensTable(SQLiteDatabase db) {
+    private static void declareTokensTable(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TOKENS_TABLE + "(" +
                 LOGIN_ACCESS_TOKEN + " TEXT, " +
                 LOGIN_REFRESH_TOKEN + " TEXT, " +
@@ -122,7 +167,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Creating User's data table in the database
-    private void declareUserDataTable(SQLiteDatabase db) {
+    private static void declareUserDataTable(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + USER_INFO_TABLE + "(" +
                 USER_ID + " TEXT," +
                 USER_EMAIL + " TEXT PRIMARY KEY, " +
@@ -133,10 +178,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Creating Packet's data table in the database
-    private void declarePacketTable(SQLiteDatabase db) {
+    private static void declarePacketTable(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + PACKET_TABLE + "(" +
                 PACKET_ID + " TEXT PRIMARY KEY, " +
-                PACKET_NAME + " TEXT, " +
+                PACKET_TITLE + " TEXT, " +
                 PACKET_PASSWORD + " TEXT, " +
                 PACKET_DATE_END + " TEXT, " +
                 PACKET_STATUS + " TEXT, " +
@@ -146,10 +191,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Creating Channel's data table in the database
-    private void declareChannelsTable(SQLiteDatabase db) {
+    private static void declareChannelsTable(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + CHANNELS_TABLE + "(" +
                 CHANNEL_ID + " TEXT PRIMARY KEY, " +
-                CHANNEL_NAME + " TEXT, " +
+                CHANNEL_TITLE + " TEXT, " +
                 CHANNEL_GENRE_ID + " TEXT, " +
                 CHANNEL_NUMBER + " TEXT, " +
                 CHANNEL_URL + " TEXT, " +
@@ -166,22 +211,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Fill the database with values by default
-    private void fillDatabaseWithDefaultValues(SQLiteDatabase db) {
+    private static void fillDatabaseWithDefaultValues(SQLiteDatabase db) {
 
         fillLoggedTableWithDefaultValues(db);
         fillTokensTableWithDefaultValues(db);
-        fillUserInfoTableWithDefaultValues(db);
-        fillPacketTableWithDefaultValues(db);
-        fillChannelsTableWithDefaultValues(db);
+
+        // TODO delete
+        tempMethod_fillUserInfoTableWithDefaultValues(db);
+        // TODO delete
+        tempMethod1_fillPacketTableWithDefaultValues(db);
+        tempMethod2_fillPacketTableWithDefaultValues(db);
     }
 
-    private void fillLoggedTableWithDefaultValues(SQLiteDatabase db) {
+    private static void fillLoggedTableWithDefaultValues(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + LOGGED_STATE_TABLE + " VALUES (" +
                 "\"false\", " + // LOGGED_IN_APP
                 "\"false\" )"); // LOGGED_IN_PACKET
     }
 
-    private void fillTokensTableWithDefaultValues(SQLiteDatabase db) {
+    private static void fillTokensTableWithDefaultValues(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + TOKENS_TABLE + " VALUES (" +
                 "\"null\", " + // LOGIN_ACCESS_TOKEN
                 "\"null\", " + // LOGIN_REFRESH_TOKEN
@@ -189,48 +237,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "\"null\" )"); // PACKET_REFRESH_TOKEN
     }
 
-    private void fillUserInfoTableWithDefaultValues(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO " + USER_INFO_TABLE + " VALUES (" +
-                "\"null\", " + // USER_ID
-                "\"null\", " + // USER_EMAIL
-                "\"null\", " + // USER_NAME
-                "\"null\", " + // USER_BALANCE
-                "\"null\")");  // USER_BONUS
-    }
-
-    private void fillPacketTableWithDefaultValues(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO " + PACKET_TABLE + " VALUES (" +
-                "\"null\", " + // PACKET_ID
-                "\"null\", " + // PACKET_NAME
-                "\"null\", " + // PACKET_PASSWORD
-                "\"null\", " + // PACKET_DATE_END
-                "\"null\", " + // PACKET_STATUS
-                "\"null\")");  // PACKET_USER_EMAIL
-    }
-
-    private void fillChannelsTableWithDefaultValues(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO " + CHANNELS_TABLE + " VALUES (" +
-                "\"null\", " + // CHANNEL_ID
-                "\"null\", " + // CHANNEL_URL
-                "\"null\", " + // CHANNEL_NAME
-                "\"null\", " + // CHANNEL_GENRE_ID
-                "\"null\", " + // CHANNEL_NUMBER
-                "\"null\", " + // CHANNEL_ARCHIVE
-                "\"null\", " + // CHANNEL_ARCHIVE_RANGE
-                "\"null\", " + // CHANNEL_PVR
-                "\"null\", " + // CHANNEL_CENSORED
-                "\"null\", " + // CHANNEL_FAVORITE
-                "\"null\", " + // CHANNEL_LOGO
-                "\"null\", " + // CHANNEL_MONITORING_STATUS
-                "\"null\" )"); // CHANNEL_PACKET_ID
-    }
-
     // Drop existing tables
-    private void dropExistingTables(SQLiteDatabase db) {
+    private static void dropExistingTables(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TOKENS_TABLE + " ;");
         db.execSQL("DROP TABLE IF EXISTS " + USER_INFO_TABLE + " ;");
         db.execSQL("DROP TABLE IF EXISTS " + LOGGED_STATE_TABLE + " ;");
         db.execSQL("DROP TABLE IF EXISTS " + PACKET_TABLE + " ;");
         db.execSQL("DROP TABLE IF EXISTS " + CHANNELS_TABLE + " ;");
+    }
+
+    private static void tempMethod_fillUserInfoTableWithDefaultValues(SQLiteDatabase db) {
+        db.execSQL("INSERT INTO " + USER_INFO_TABLE + " VALUES (" +
+                "\"no id\", " +     // USER_ID
+                "\"no email\", " +  // USER_EMAIL
+                "\"unnamed\", " +   // USER_NAME
+                "\"zero\", " +      // USER_BALANCE
+                "\"zero\")");       // USER_BONUS
+    }
+
+    private static void tempMethod1_fillPacketTableWithDefaultValues(SQLiteDatabase db) {
+        db.execSQL("INSERT INTO " + PACKET_TABLE + " VALUES (" +
+                "\"1\", " + // PACKET_ID
+                "\"Test packet\", " + // PACKET_NAME
+                "\"123456\", " + // PACKET_PASSWORD
+                "\"" + System.currentTimeMillis() + "\", " + // PACKET_DATE_END
+                "\"1\", " + // PACKET_STATUS
+                "\"some email\")");  // PACKET_USER_EMAIL
+    }
+
+    private static void tempMethod2_fillPacketTableWithDefaultValues(SQLiteDatabase db) {
+        db.execSQL("INSERT INTO " + PACKET_TABLE + " VALUES (" +
+                "\"2\", " + // PACKET_ID
+                "\"Test packet 2\", " + // PACKET_NAME
+                "\"324574\", " + // PACKET_PASSWORD
+                "\"" + (System.currentTimeMillis() + 5000000) + "\", " + // PACKET_DATE_END
+                "\"null\", " + // PACKET_STATUS
+                "\"null\")");  // PACKET_USER_EMAIL
     }
 }

@@ -10,14 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.olehbalandyuk.studyproject.R;
+import com.olehbalandyuk.studyproject.application.data.database.DatabaseConnector;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class CabinetFragment extends Fragment {
-
-
     private static final String TAG = CabinetFragment.class.getSimpleName();
+
+    private static final int PACKET_ID = 0;
+    private static final int PACKET_PASSWORD = 1;
+    private static final int PACKET_TITLE = 2;
+    private static final int PACKET_DATE_END = 3;
+    private static final int PACKET_STATUS = 4;
 
     protected ArrayList<CabinetRecyclerViewModel> mData = new ArrayList<>();
 
@@ -26,11 +30,10 @@ public class CabinetFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cabinet, container, false);
 
-        tempMethod_fillModel();
-
         RecyclerView recycler = (RecyclerView) view.findViewById(R.id.cabinet_recycler_view);
 
-        final CabinetRecyclerViewAdapter adapter = new CabinetRecyclerViewAdapter(mData);
+
+        final CabinetRecyclerViewAdapter adapter = new CabinetRecyclerViewAdapter(loadPackets());
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -39,17 +42,20 @@ public class CabinetFragment extends Fragment {
         return view;
     }
 
-    protected void tempMethod_fillModel() {
-        Log.v(TAG, ">> Method - fillModel()");
-        for (int i = 0; i < 5; i++) {
+    private ArrayList<CabinetRecyclerViewModel> loadPackets() {
+        ArrayList<CabinetRecyclerViewModel> result = new ArrayList<>();
+
+        ArrayList<String[]> packets = DatabaseConnector.loadPacketsFromDB(getActivity());
+
+        for (String[] packet: packets) {
             final CabinetRecyclerViewModel model = new CabinetRecyclerViewModel();
-            model.setId("#" + String.valueOf(i));
-            model.setDate(new Date(System.currentTimeMillis() + i*i*1000*1000*300*i).toString());
-            model.setTitle("Test packet #" + i);
-            mData.add(model);
+            model.setId(packet[PACKET_ID]);
+            model.setTitle(packet[PACKET_TITLE]);
+            model.setDateEnd(packet[PACKET_DATE_END]);
+            result.add(model);
         }
 
-        Log.v(TAG, "<< Method - fillModel()");
+        return result;
     }
 
 }

@@ -7,8 +7,8 @@ package com.olehbalandyuk.studyproject.application;
 public class API {
 
     // Links which are needed to redirect user to the website
-    public static final String REGISTER = "http://starcards.tv/register";
-    public static final String FORGOT_PASSWORD = "http://starcards.tv/";
+    public static final String REGISTER_URL = "http://starcards.tv/register";
+    public static final String FORGOT_PASSWORD_URL = "http://starcards.tv/";
 
     // Links which are needed to run requests
     public static final String API = "https://api.starcards.tv/user";

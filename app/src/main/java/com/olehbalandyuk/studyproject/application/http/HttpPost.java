@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.olehbalandyuk.studyproject.application.API;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -31,10 +30,12 @@ class HttpPost<T> extends AsyncTask<Void, Void, T> {
 
     public HttpPost(String query, String url, HttpPostCallback<T> callback, Class<T> responseType) {
         Log.v(TAG, ">> Constructor HttpPost(String, String, HttpPostCallback, Class)");
+
         mQuery = query;
         mCallback = callback;
         mUrl = url;
         mType = responseType;
+
         Log.v(TAG, "<< Constructor HttpPost(String, String, HttpPostCallback, Class)");
     }
 
@@ -58,17 +59,20 @@ class HttpPost<T> extends AsyncTask<Void, Void, T> {
 
     protected void onPostExecute(T response) {
         Log.v(TAG, ">> Method: onPostExecute()");
-        Log.v(TAG, "--> Method: onPostExecute(), response = " + response);
+
         if (response != null) {
             mCallback.onResponse(response);
 
         } else {
             // TODO send error if response is null
         }
+
         Log.v(TAG, "<< Method: onPostExecute()");
     }
 
     private HttpURLConnection connect(URL url) {
+        Log.v(TAG, ">> Method: connect(URL)");
+
         try {
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             byte[] outputBytes = mQuery.getBytes(ENCODING_TYPE);
@@ -80,42 +84,54 @@ class HttpPost<T> extends AsyncTask<Void, Void, T> {
             OutputStream os = urlConnection.getOutputStream();
             os.write(outputBytes);
             os.close();
+
+            Log.v(TAG, "<< Method: connect(URL)");
             return urlConnection;
         } catch (IOException e) {
+
+            Log.e(TAG, "<< Method: connect(URL), finished with error, returning null");
             return null;
         }
     }
 
     private String obtainResponse(HttpURLConnection urlConnection) {
-        Log.v(TAG, ">> Method: obtainResponse()");
+        Log.v(TAG, ">> Method: obtainResponse(HttpURLConnection)");
+
         try {
 
             int statusCode = urlConnection.getResponseCode();
-            Log.v(TAG, "--> Method: obtainResponse(), status code = " + statusCode);
+            Log.v(TAG, "--> Method: obtainResponse(HttpURLConnection), status code = " + statusCode);
 
             if (statusCode == HttpsURLConnection.HTTP_OK) {
                 InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
                 return convertStreamToString(inputStream);
             } else if (statusCode == HttpsURLConnection.HTTP_UNAUTHORIZED) {
-                Log.e(TAG, "--> Method: obtainResponse(), error while obtaining response");
+                Log.e(TAG, "--> Method: obtainResponse(HttpURLConnection), error while obtaining response");
+                Log.v(TAG, "<< Method: obtainResponse(HttpURLConnection)");
                 return "{\"status\": \"ERROR\", \"error\": \"Access denied\"}";
             } else {
                 return "";
             }
         } catch (IOException e) {
             Log.e(TAG, "Error while decoding stream", e);
+
+            Log.v(TAG, "<< Method: obtainResponse(HttpURLConnection)");
             return null;
         } catch (NullPointerException e) {
+            Log.e(TAG, "Error while decoding stream", e);
+
+            Log.v(TAG, "<< Method: obtainResponse(HttpURLConnection)");
             return "";
         }
     }
 
     public static String convertStreamToString(InputStream is) {
-        Log.v(TAG, ">> Method: convertStreamToString()");
+        Log.v(TAG, ">> Method: convertStreamToString(InputStream)");
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder builder = new StringBuilder();
-
         String line;
+
         try {
             while ((line = reader.readLine()) != null) {
                 builder.append((line + "\n"));
@@ -126,10 +142,11 @@ class HttpPost<T> extends AsyncTask<Void, Void, T> {
             try {
                 is.close();
             } catch (IOException e) {
-                Log.e(TAG, "--> Method: convertStreamToString(), error while closing input stream");
+                Log.e(TAG, "--> Method: convertStreamToString(InputStream), error while closing input stream");
             }
         }
-        Log.v(TAG, "<< Method: convertStreamToString()");
+
+        Log.v(TAG, "<< Method: convertStreamToString(InputStream)");
         return builder.toString();
     }
 }
