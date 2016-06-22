@@ -9,7 +9,7 @@ class PacketModel implements Serializable {
 
     @Expose
     @SerializedName("id")
-    private String mPackageId;
+    private String mId;
 
     @Expose
     @SerializedName("pass")
@@ -28,23 +28,23 @@ class PacketModel implements Serializable {
     private String mStatus;
 
 
-    public String getPackageId() {
-        return mPackageId;
-    }
-
     public String getPassword() {
         return mPassword;
+    }
+
+    public String getId() {
+        return mId;
     }
 
     public String getTitle() {
         return mTitle;
     }
 
-    public String getEndDate() {
-        return mEndDate;
-    }
-
     public String getStatus() {
         return mStatus;
+    }
+
+    public String getEndDate() {
+        return mEndDate;
     }
 }

@@ -32,7 +32,10 @@ public class NetworkService extends Service {
 
     private enum ServiceRequests {
         AUTHORIZE_IN_APP,
+        GET_USER_INFO,
+        GET_PACKETS_LIST,
         AUTHORIZE_IN_PACKET,
+        GET_TV_CHANNELS
     }
 
     @Override
@@ -54,6 +57,8 @@ public class NetworkService extends Service {
 
                             @Override
                             public void onResponse(HttpRequestResult response) {
+                                Log.v(TAG, "Message received: " + response.getResponse());
+
                                 Gson gson = new Gson();
                                 AuthorizeResultModel result = gson.fromJson(response.getResponse(), AuthorizeResultModel.class);
                                 handleResponse(result);
@@ -65,16 +70,38 @@ public class NetworkService extends Service {
                             }
                         }).sendHttpRequest();
                 break;
-            case AUTHORIZE_IN_PACKET:
-                // TODO
+            case GET_PACKETS_LIST:
                 new HttpGetRequest(intent.getStringExtra(QUERY),
                         API.PACKETS_SUMMARY,
                         new HttpRequestCallback() {
 
                             @Override
                             public void onResponse(HttpRequestResult response) {
+                                Log.v(TAG, "Message received: " + response.getResponse());
+
                                 Gson gson = new Gson();
                                 PacketSummaryResponse result = gson.fromJson(response.getResponse(), PacketSummaryResponse.class);
+                                handleResponse(result);
+                            }
+
+                            @Override
+                            public void onError(HttpRequestResult error) {
+                                //TODO: handle errors
+                            }
+                        },
+                        getApplicationContext()).sendHttpRequest();
+                break;
+            case GET_USER_INFO:
+                new HttpGetRequest(intent.getStringExtra(QUERY),
+                        API.USER_INFO,
+                        new HttpRequestCallback() {
+
+                            @Override
+                            public void onResponse(HttpRequestResult response) {
+                                Log.v(TAG, "Message received: " + response.getResponse());
+
+                                Gson gson = new Gson();
+                                UserInfoModel result = gson.fromJson(response.getResponse(), UserInfoModel.class);
                                 handleResponse(result);
                             }
 
@@ -90,8 +117,19 @@ public class NetworkService extends Service {
         return super.onStartCommand(intent, flag, startId);
     }
 
+    private void handleResponse(UserInfoModel response) {
+        Log.v(TAG, ">> Method: handleResponse(UserInfoModel)");
+
+        if (response.getStatus().equals("OK")) {
+            Log.d(TAG, "response success");
+            //TODO: handle response
+        }
+        Log.v(TAG, "<< Method: handleResponse(UserInfoModel)");
+
+    }
+
     private void handleResponse(AuthorizeResultModel response) {
-        Log.v(TAG, ">> Method: handleResponse()");
+        Log.v(TAG, ">> Method: handleResponse(AuthorizeResultModel)");
 
         if (response.getLoginAccessToken() != null) {
             Tokens tokens = new Tokens(getApplicationContext());
@@ -104,22 +142,18 @@ public class NetworkService extends Service {
         }
 
 
-        Log.v(TAG, "<< Method: handleResponse()");
+        Log.v(TAG, "<< Method: handleResponse(AuthorizeResultModel)");
     }
 
     private void handleResponse(PacketSummaryResponse response) {
-        Log.v(TAG, ">> Method: handlePackageResponse()");
+        Log.v(TAG, ">> Method: handleResponse(PacketSummaryResponse)");
 
         if (response.getStatus().equals("OK")) {
             Log.d(TAG, "response success");
             //TODO: handle response
         }
-        Log.v(TAG, "<< Method: handlePackageResponse()");
+        Log.v(TAG, "<< Method: handleResponse(PacketSummaryResponse)");
     }
-
-    //TODO:
-    // private void handleResponse(UserInfo response) {}
-
 
     private void sendBroadcast(int status, Serializable response) {
         Intent intent = new Intent(BROADCAST_ACTION);
@@ -153,9 +187,16 @@ public class NetworkService extends Service {
     public static void getPackets(Context context) {
         Intent result = new Intent(context, NetworkService.class);
 
-        //result.putExtra(QUERY, getPackets());
         result.putExtra(QUERY, "");
-        result.putExtra(REQUEST, ServiceRequests.AUTHORIZE_IN_PACKET);
+        result.putExtra(REQUEST, ServiceRequests.GET_PACKETS_LIST);
+        context.startService(result);
+    }
+
+    public static void getUserInfo(Context context) {
+        Intent result = new Intent(context, NetworkService.class);
+
+        result.putExtra(QUERY, "");
+        result.putExtra(REQUEST, ServiceRequests.GET_USER_INFO);
         context.startService(result);
     }
 

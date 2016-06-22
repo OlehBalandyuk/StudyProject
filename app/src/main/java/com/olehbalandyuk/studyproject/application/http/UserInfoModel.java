@@ -3,7 +3,17 @@ package com.olehbalandyuk.studyproject.application.http;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserInfoModel {
+import java.io.Serializable;
+
+public class UserInfoModel implements Serializable{
+
+    @Expose
+    @SerializedName("status")
+    private String mStatus;
+
+    @Expose
+    @SerializedName("error")
+    private String mError;
 
     @Expose
     @SerializedName("id")
@@ -37,4 +47,5 @@ public class UserInfoModel {
         return mBonus;
     }
 
+    public String getStatus() {return mStatus; }
 }

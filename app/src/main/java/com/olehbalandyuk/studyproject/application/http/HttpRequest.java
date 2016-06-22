@@ -62,10 +62,8 @@ abstract class HttpRequest extends AsyncTask<Void, Void, Void> {
 
         } catch (MalformedURLException e) {
             Log.e(TAG, "--> Method: doInBackground(), error while converting string to url ");
-
-            Log.v(TAG, "<< Method: doInBackground()");
         }
-
+        Log.v(TAG, "<< Method: doInBackground()");
         return null;
     }
 
@@ -104,6 +102,7 @@ abstract class HttpRequest extends AsyncTask<Void, Void, Void> {
             mCallback.onError(new HttpRequestResult(HttpRequestStatus.OTHER));
 
         }
+        Log.v(TAG, "<< Method: obtainResponse()");
         return response;
     }
 

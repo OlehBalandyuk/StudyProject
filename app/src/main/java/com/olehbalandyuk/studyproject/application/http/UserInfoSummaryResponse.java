@@ -1,14 +1,10 @@
 package com.olehbalandyuk.studyproject.application.http;
 
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
-
-class PacketSummaryResponse implements Serializable {
-
+public class UserInfoSummaryResponse {
     @Expose
     @SerializedName("status")
     private String mStatus;
@@ -19,7 +15,7 @@ class PacketSummaryResponse implements Serializable {
 
     @Expose
     @SerializedName("results")
-    private ArrayList<PacketModel> mResults;
+    UserInfoModel mResults;
 
     public String getStatus() {
         return mStatus;
@@ -29,9 +25,8 @@ class PacketSummaryResponse implements Serializable {
         return mError;
     }
 
-    public ArrayList<PacketModel> getResults() {
+    public UserInfoModel getResults() {
         return mResults;
     }
 
 }
-

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.olehbalandyuk.studyproject.R;
 import com.olehbalandyuk.studyproject.application.data.database.DatabaseConnector;
+import com.olehbalandyuk.studyproject.application.http.NetworkService;
 import com.olehbalandyuk.studyproject.application.http.UserDetails;
 import com.olehbalandyuk.studyproject.application.ui.fragments.cabinet.CabinetFragment;
 import com.olehbalandyuk.studyproject.application.ui.fragments.contacts.ContactsFragment;
@@ -91,6 +92,7 @@ public class MainScreenActivity extends AppCompatActivity
         Log.v(TAG, "--> Method: onResume(), is logged = " + isLogged);
 
         if (isLogged) {
+            NetworkService.getUserInfo(this);
             loadUserInfo();
             loadCabinetFragment();
         } else {
