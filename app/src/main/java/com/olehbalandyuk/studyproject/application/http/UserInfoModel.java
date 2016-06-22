@@ -8,14 +8,6 @@ import java.io.Serializable;
 public class UserInfoModel implements Serializable{
 
     @Expose
-    @SerializedName("status")
-    private String mStatus;
-
-    @Expose
-    @SerializedName("error")
-    private String mError;
-
-    @Expose
     @SerializedName("id")
     private String mId;
 
@@ -46,6 +38,4 @@ public class UserInfoModel implements Serializable{
     public String getBonus() {
         return mBonus;
     }
-
-    public String getStatus() {return mStatus; }
 }

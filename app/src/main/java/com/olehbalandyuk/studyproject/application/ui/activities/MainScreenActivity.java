@@ -208,6 +208,7 @@ public class MainScreenActivity extends AppCompatActivity
 
         Intent loginScreen = new Intent(this, LoginActivity.class);
         startActivity(loginScreen);
+        finish();
 
         Log.v(TAG, "<< Method: redirectToLoginActivity()");
     }
