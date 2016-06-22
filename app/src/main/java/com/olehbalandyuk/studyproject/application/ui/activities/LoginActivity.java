@@ -149,8 +149,8 @@ public class LoginActivity extends AppCompatActivity {
         Log.v(TAG, ">> Method: isNetworkConnected()");
 
         boolean isNetworkEnabled = NetworkState.networkIsAvailable(this);
-
         Log.v(TAG, "--> Method: isNetworkConnected(), network is available - " + isNetworkEnabled);
+
         Log.v(TAG, "<< Method: isNetworkConnected()");
         return isNetworkEnabled;
     }
@@ -182,7 +182,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void saveUserEmail() {
-        DatabaseConnector.saveUserEmail(mUsernameField.getText().toString(), this);
+        Log.v(TAG, ">> Method: saveUserEmail()");
+
+        DatabaseConnector.saveUserEmail(this, mUsernameField.getText().toString());
+
+        Log.v(TAG, "<< Method: saveUserEmail()");
     }
 
     private void handleWrongInputData() {
@@ -217,17 +221,22 @@ public class LoginActivity extends AppCompatActivity {
         registerReceiver(mReceiver, filter);
 
         sendService();
+
         Log.v(TAG, "<< Method: sendRequest()");
     }
 
     private void abortSendingRequest() {
         Log.v(TAG, ">> Method: abortSendingRequest()");
+
         showNetworkErrorDialog();
         mLogin.setMode(ActionProcessButton.Mode.PROGRESS);
+
         Log.v(TAG, "<< Method: abortSendingRequest()");
     }
 
     private void setForgotPasswordOnClickListener() {
+        Log.v(TAG, ">> Method: setForgotPasswordOnClickListener()");
+
         mForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,9 +244,12 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(forgotPasswordRedirect);
             }
         });
+        Log.v(TAG, "<< Method: setForgotPasswordOnClickListener()");
     }
 
     private void setCreateAccountOnClickListener() {
+        Log.v(TAG, ">> Method: setCreateAccountOnClickListener()");
+
         mCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,20 +257,27 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(createAccountRedirect);
             }
         });
+        Log.v(TAG, "<< Method: setCreateAccountOnClickListener()");
     }
 
     private void setUserNameText() {
+        Log.v(TAG, ">> Method: setUserNameText()");
+
         if (mUsername != null && !mUsername.equals("")) {
             mUsernameField.setText(mUsername);
             mUsernameField.setSelection(mUsername.length());
         }
+        Log.v(TAG, "<< Method: setUserNameText()");
     }
 
     private void setPasswordText() {
+        Log.v(TAG, ">> Method: setPasswordText()");
+
         if (mPassword != null && !mPassword.equals("")) {
             mPasswordField.setText(mPassword);
             mPasswordField.setSelection(mPassword.length());
             mPasswordField.requestFocus();
         }
+        Log.v(TAG, "<< Method: setPasswordText()");
     }
 }

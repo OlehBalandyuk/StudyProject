@@ -1,5 +1,6 @@
 package com.olehbalandyuk.studyproject.application.ui.fragments.cabinet;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,44 +18,54 @@ import java.util.ArrayList;
 public class CabinetFragment extends Fragment {
     private static final String TAG = CabinetFragment.class.getSimpleName();
 
-    private static final int PACKET_ID = 0;
-    private static final int PACKET_PASSWORD = 1;
-    private static final int PACKET_TITLE = 2;
-    private static final int PACKET_DATE_END = 3;
-    private static final int PACKET_STATUS = 4;
+    private InteractionListener mListener;
 
-    protected ArrayList<CabinetRecyclerViewModel> mData = new ArrayList<>();
+    public interface InteractionListener {
+
+        void showFragment();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        mListener = (InteractionListener) context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.v(TAG, ">> Method: onCreateView(LayoutInflater, ViewGroup, Bundle)");
+
         View view = inflater.inflate(R.layout.fragment_cabinet, container, false);
 
         RecyclerView recycler = (RecyclerView) view.findViewById(R.id.cabinet_recycler_view);
 
-
-        final CabinetRecyclerViewAdapter adapter = new CabinetRecyclerViewAdapter(loadPackets());
+        final CabinetRecyclerViewAdapter adapter = new CabinetRecyclerViewAdapter(loadPackets(), recycler, new CabinetFragmentCallback() {
+            @Override
+            public void showChannels() {
+                mListener.showFragment();
+            }
+        }, getContext());
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        Log.d(TAG, "onCreateView");
-
+        Log.v(TAG, "<< Method: onCreateView(LayoutInflater, ViewGroup, Bundle)");
         return view;
     }
 
-    private ArrayList<CabinetRecyclerViewModel> loadPackets() {
-        ArrayList<CabinetRecyclerViewModel> result = new ArrayList<>();
+    private ArrayList<PacketModel> loadPackets() {
+        Log.v(TAG, ">> Method: loadPackets()");
+
+        ArrayList<PacketModel> result = new ArrayList<>();
 
         ArrayList<String[]> packets = DatabaseConnector.loadPacketsFromDB(getActivity());
 
         for (String[] packet: packets) {
-            final CabinetRecyclerViewModel model = new CabinetRecyclerViewModel();
-            model.setId(packet[PACKET_ID]);
-            model.setTitle(packet[PACKET_TITLE]);
-            model.setDateEnd(packet[PACKET_DATE_END]);
-            result.add(model);
+            result.add(new PacketModel(packet));
         }
 
+        Log.v(TAG, ">> Method: loadPackets()");
         return result;
     }
 

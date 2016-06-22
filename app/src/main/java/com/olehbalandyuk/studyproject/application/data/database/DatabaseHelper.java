@@ -271,7 +271,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "\"Test packet 2\", " + // PACKET_NAME
                 "\"324574\", " + // PACKET_PASSWORD
                 "\"" + (System.currentTimeMillis() + 5000000) + "\", " + // PACKET_DATE_END
-                "\"null\", " + // PACKET_STATUS
+                "\"1\", " + // PACKET_STATUS
                 "\"null\")");  // PACKET_USER_EMAIL
     }
 }
