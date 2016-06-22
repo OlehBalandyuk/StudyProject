@@ -1,6 +1,6 @@
 package com.olehbalandyuk.studyproject.application.http;
 
-public class HttpRequestResult {
+class HttpRequestResult {
 
     int mStatusCode;
     String mResponse;

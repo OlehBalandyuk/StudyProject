@@ -69,7 +69,6 @@ class CabinetRecyclerViewAdapter extends RecyclerView.Adapter<CabinetRecyclerVie
     }
 
     private void authorizeInPacket(int position) {
-        //future method
     }
 
     @Override

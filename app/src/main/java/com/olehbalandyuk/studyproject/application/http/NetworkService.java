@@ -38,9 +38,8 @@ public class NetworkService extends Service {
         GET_USER_INFO,
         GET_PACKETS_LIST,
         AUTHORIZE_IN_PACKET,
-        GET_TV_CHANNELS
+        GET_TV_CHANNELS;
     }
-
     @Override
     public IBinder onBind(Intent intent) {
         throw null;
@@ -106,7 +105,7 @@ public class NetworkService extends Service {
                                 Log.v(TAG, "Message received: " + response.getResponse());
 
                                 Gson gson = new Gson();
-                                UserInfoModel result = gson.fromJson(response.getResponse(), UserInfoModel.class);
+                                UserInfoSummaryResponse result = gson.fromJson(response.getResponse(), UserInfoSummaryResponse.class);
                                 handleResponse(result);
                             }
 
@@ -122,7 +121,7 @@ public class NetworkService extends Service {
         return super.onStartCommand(intent, flag, startId);
     }
 
-    private void handleResponse(UserInfoModel response) {
+    private void handleResponse(UserInfoSummaryResponse response) {
         Log.v(TAG, ">> Method: handleResponse(UserInfoModel)");
 
         if (response.getStatus().equals("OK")) {
