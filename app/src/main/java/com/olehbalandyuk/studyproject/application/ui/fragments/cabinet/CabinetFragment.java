@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.olehbalandyuk.studyproject.R;
 import com.olehbalandyuk.studyproject.application.data.database.DatabaseConnector;
+import com.olehbalandyuk.studyproject.application.http.NetworkService;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,13 @@ public class CabinetFragment extends Fragment {
         super.onAttach(context);
 
         mListener = (InteractionListener) context;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        NetworkService.getPackets(getActivity().getApplicationContext());
     }
 
     @Override
