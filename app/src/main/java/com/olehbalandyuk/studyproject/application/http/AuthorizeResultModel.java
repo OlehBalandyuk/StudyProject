@@ -23,6 +23,7 @@ class AuthorizeResultModel implements Serializable {
     @SerializedName("user_id")
     private String mUserId;
 
+
     public String getStatus() {
         return mStatus;
     }

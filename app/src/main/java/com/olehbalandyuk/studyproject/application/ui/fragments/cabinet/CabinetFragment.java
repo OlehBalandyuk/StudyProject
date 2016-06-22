@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.olehbalandyuk.studyproject.R;
 import com.olehbalandyuk.studyproject.application.data.database.DatabaseConnector;
+import com.olehbalandyuk.studyproject.application.http.NetworkService;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,13 @@ public class CabinetFragment extends Fragment {
     private static final int PACKET_STATUS = 4;
 
     protected ArrayList<CabinetRecyclerViewModel> mData = new ArrayList<>();
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        NetworkService.getPackets(getActivity().getApplicationContext());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

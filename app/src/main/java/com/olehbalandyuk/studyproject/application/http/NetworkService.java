@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.olehbalandyuk.studyproject.application.API;
 
 import java.io.Serializable;
@@ -40,42 +41,57 @@ public class NetworkService extends Service {
     }
 
     public int onStartCommand(Intent intent, int flag, int startId) {
-        Log.v(TAG, ">> Method: onStartCommand(Intent, int, int)");
-
         if (intent == null) return super.onStartCommand(null, flag, startId);
 
         ServiceRequests requestType = (ServiceRequests) intent.getSerializableExtra(REQUEST);
 
+        HttpRequest request;
         switch (requestType) {
             case AUTHORIZE_IN_APP:
-                new HttpPost<>(intent.getStringExtra(QUERY),
+                new HttpPostRequest(intent.getStringExtra(QUERY),
                         API.LOGIN,
-                        new HttpPostCallback<AuthorizeResultModel>() {
+                        new HttpRequestCallback() {
 
                             @Override
-                            public void onResponse(AuthorizeResultModel response) {
-                                handleAuthorizeResponse(response);
+                            public void onResponse(HttpRequestResult response) {
+                                Gson gson = new Gson();
+                                AuthorizeResultModel result = gson.fromJson(response.getResponse(), AuthorizeResultModel.class);
+                                handleResponse(result);
                             }
 
                             @Override
-                            public void onError(Errors error) {
-                                handleError(error);
+                            public void onError(HttpRequestResult error) {
+                                //TODO: handle errors
                             }
-                        },
-                        AuthorizeResultModel.class)
-                        .execute();
+                        }).sendHttpRequest();
                 break;
             case AUTHORIZE_IN_PACKET:
                 // TODO
+                new HttpGetRequest(intent.getStringExtra(QUERY),
+                        API.PACKETS_SUMMARY,
+                        new HttpRequestCallback() {
+
+                            @Override
+                            public void onResponse(HttpRequestResult response) {
+                                Gson gson = new Gson();
+                                PacketSummaryResponse result = gson.fromJson(response.getResponse(), PacketSummaryResponse.class);
+                                handleResponse(result);
+                            }
+
+                            @Override
+                            public void onError(HttpRequestResult error) {
+                                //TODO: handle errors
+                            }
+                        },
+                        getApplicationContext()).sendHttpRequest();
                 break;
         }
 
-        Log.v(TAG, "<< Method: onStartCommand(Intent, int, int)");
         return super.onStartCommand(intent, flag, startId);
     }
 
-    private void handleAuthorizeResponse(AuthorizeResultModel response) {
-        Log.v(TAG, ">> Method: handleResponse(AuthorizeResultModel)");
+    private void handleResponse(AuthorizeResultModel response) {
+        Log.v(TAG, ">> Method: handleResponse()");
 
         if (response.getLoginAccessToken() != null) {
             Tokens tokens = new Tokens(getApplicationContext());
@@ -85,30 +101,35 @@ public class NetworkService extends Service {
             logged.setLoggedByLogin();
 
             sendBroadcast(OK, response);
-        } else if (response.getStatus().equals("ERROR")) {
-            sendBroadcast(BAD_REQUEST, response);
         }
 
-        Log.v(TAG, "<< Method: handleResponse(AuthorizeResultModel)");
+
+        Log.v(TAG, "<< Method: handleResponse()");
     }
 
-    private void handleError(Errors error) {
-        // TODO
+    private void handleResponse(PacketSummaryResponse response) {
+        Log.v(TAG, ">> Method: handlePackageResponse()");
+
+        if (response.getStatus().equals("OK")) {
+            Log.d(TAG, "response success");
+            //TODO: handle response
+        }
+        Log.v(TAG, "<< Method: handlePackageResponse()");
     }
+
+    //TODO:
+    // private void handleResponse(UserInfo response) {}
+
 
     private void sendBroadcast(int status, Serializable response) {
-        Log.v(TAG, ">> Method: sendBroadcast(int, Serializable)");
-
         Intent intent = new Intent(BROADCAST_ACTION);
         intent.putExtra(HTTP_STATUS, status);
         intent.putExtra(RESPONSE, response);
         sendBroadcast(intent);
-
-        Log.v(TAG, "<< Method: sendBroadcast(int, Serializable)");
     }
 
     private static String authorizeUser(String email, String password) {
-        Log.v(TAG, ">> Method: authorizeUser(String, String)");
+        Log.v(TAG, ">> Method: authorizeUser()");
 
         Uri.Builder builder = new Uri.Builder()
                 .appendQueryParameter(GRANT_TYPE, PASSWORD_PARAM)
@@ -117,18 +138,25 @@ public class NetworkService extends Service {
 
         String encodedQuery = builder.build().getEncodedQuery();
 
-        Log.v(TAG, "<< Method: authorizeUser(String, String)");
+        Log.v(TAG, "<< Method: authorizeUser()");
         return encodedQuery;
     }
 
     public static void authorizeUser(Context context, String email, String password) {
-        Log.v(TAG, ">> Method: authorizeUser(Context, String, String");
-
         Intent result = new Intent(context, NetworkService.class);
+
         result.putExtra(QUERY, authorizeUser(email, password));
         result.putExtra(REQUEST, ServiceRequests.AUTHORIZE_IN_APP);
         context.startService(result);
-
-        Log.v(TAG, "<< Method: authorizeUser(Context, String, String");
     }
+
+    public static void getPackets(Context context) {
+        Intent result = new Intent(context, NetworkService.class);
+
+        //result.putExtra(QUERY, getPackets());
+        result.putExtra(QUERY, "");
+        result.putExtra(REQUEST, ServiceRequests.AUTHORIZE_IN_PACKET);
+        context.startService(result);
+    }
+
 }
