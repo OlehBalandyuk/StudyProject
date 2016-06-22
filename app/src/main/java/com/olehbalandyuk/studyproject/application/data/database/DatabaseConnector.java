@@ -16,6 +16,12 @@ public class DatabaseConnector {
 
     public static final boolean TOKENS_ARE_LOGIN = true;
 
+    private static final int PACKET_INFO_ID = 0;
+    private static final int PACKET_INFO_PASSWORD = 1;
+    private static final int PACKET_INFO_TITLE = 2;
+    private static final int PACKET_INFO_DATE_END = 3;
+    private static final int PACKET_INFO_STATUS = 4;
+
     /**
      * Loads user info from the database
      *
@@ -259,8 +265,28 @@ public class DatabaseConnector {
         return logged;
     }
 
+    public static void savePackets(Context context, ArrayList<String[]> packets) {
+        DatabaseHelper helper = new DatabaseHelper(context);
+        SQLiteDatabase database = helper.getReadableDatabase();
+
+        database.execSQL("DELETE FROM " + PACKET_TABLE);
+
+        for (String[] packet: packets) {
+            database.execSQL("INSERT INTO " + PACKET_TABLE + " VALUES ( " +
+                    "\"" + packet[PACKET_INFO_ID] + "\", " +
+                    "\"" + packet[PACKET_INFO_PASSWORD] + "\", " +
+                    "\"" + packet[PACKET_INFO_TITLE] + "\", " +
+                    "\"" + packet[PACKET_INFO_DATE_END] + "\", " +
+                    "\"" + packet[PACKET_INFO_STATUS] + "\", " +
+                    "\"" + getColumnValue(database, USER_INFO_TABLE, USER_EMAIL) + "\" " + ")"
+            );
+        }
+
+        database.close();
+    }
+
     /**
-     Method logs out userut frothe m application.
+     Method logs out user from the application.
      * This method will delete all data from the database
      *
      * @param context for access to the database
@@ -293,20 +319,17 @@ public class DatabaseConnector {
         Log.v(TAG, ">> Method: loadPacketsFromDB(SQLiteDatabase)");
 
         ArrayList<String[]> result = new ArrayList<>();
-        String id;
-        String password;
-        String title;
-        String dateEnd;
-        String status;
 
         Cursor cursor = database.query(PACKET_TABLE, null, null, null, null, null, null);
         while (cursor.moveToNext()) {
-            id = cursor.getString(cursor.getColumnIndex(PACKET_ID));
-            password = cursor.getString(cursor.getColumnIndex(PACKET_PASSWORD));
-            title = cursor.getString(cursor.getColumnIndex(PACKET_TITLE));
-            dateEnd = cursor.getString(cursor.getColumnIndex(PACKET_DATE_END));
-            status = cursor.getString(cursor.getColumnIndex(PACKET_STATUS));
-            result.add(new String[]{id, password, title, dateEnd, status});
+
+            String id = cursor.getString(cursor.getColumnIndex(PACKET_ID));
+            String password = cursor.getString(cursor.getColumnIndex(PACKET_PASSWORD));
+            String title = cursor.getString(cursor.getColumnIndex(PACKET_TITLE));
+            String dateEnd = cursor.getString(cursor.getColumnIndex(PACKET_DATE_END));
+            String status = cursor.getString(cursor.getColumnIndex(PACKET_STATUS));
+
+            result.add(new String[] {id, password, title, dateEnd, status});
         }
 
         cursor.close();

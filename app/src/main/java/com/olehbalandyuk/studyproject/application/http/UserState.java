@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.olehbalandyuk.studyproject.application.data.database.DatabaseConnector;
 
-public class UserDetails {
-    private static final String TAG = UserDetails.class.getSimpleName();
+public class UserState {
+    private static final String TAG = UserState.class.getSimpleName();
 
     public static void logout(Context context) {
         Log.v(TAG, ">> Method: logout(Context)");

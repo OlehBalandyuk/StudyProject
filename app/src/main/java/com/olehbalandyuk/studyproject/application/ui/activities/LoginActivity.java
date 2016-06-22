@@ -57,14 +57,10 @@ public class LoginActivity extends AppCompatActivity {
                 Log.v(TAG, "anonymous class BroadcastReceiver, Method onReceive()" +
                         ", response in OK, redirecting to the MainScreenActivity...");
                 redirectToTheMainActivity();
-            } else if (status == NetworkService.BAD_REQUEST) {
+            } else {
                 Log.v(TAG, "anonymous class BroadcastReceiver, Method onReceive()" +
                         ", response in BAD, showing wrong input data dialog...");
                 handleWrongInputData();
-            } else if (status == NetworkService.ERROR) {
-                Log.e(TAG, "anonymous class BroadcastReceiver, Method onReceive()" +
-                        ", error, should show error dialog...");
-                // TODO show error dialog
             }
         }
     };

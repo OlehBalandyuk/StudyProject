@@ -17,11 +17,13 @@ import android.widget.TextView;
 import com.olehbalandyuk.studyproject.R;
 import com.olehbalandyuk.studyproject.application.data.database.DatabaseConnector;
 import com.olehbalandyuk.studyproject.application.http.NetworkService;
-import com.olehbalandyuk.studyproject.application.http.UserDetails;
+import com.olehbalandyuk.studyproject.application.http.UserState;
 import com.olehbalandyuk.studyproject.application.ui.fragments.cabinet.CabinetFragment;
 import com.olehbalandyuk.studyproject.application.ui.fragments.contacts.ContactsFragment;
 import com.olehbalandyuk.studyproject.application.ui.fragments.current_packet.CurrentPacketFragment;
 import com.olehbalandyuk.studyproject.application.ui.fragments.messages.MessagesFragment;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainScreenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, CabinetFragment.InteractionListener {
@@ -88,7 +90,7 @@ public class MainScreenActivity extends AppCompatActivity
         super.onResume();
         Log.v(TAG, ">> Method: onResume()");
 
-        boolean isLogged = UserDetails.isLoggedByLogin(this);
+        boolean isLogged = UserState.isLoggedByLogin(this);
         Log.v(TAG, "--> Method: onResume(), is logged = " + isLogged);
 
         if (isLogged) {
@@ -177,9 +179,9 @@ public class MainScreenActivity extends AppCompatActivity
                 fragment = new ContactsFragment();
                 break;
             case R.id.nav_log_out:
-                UserDetails.logout(this);
-                redirectToLoginActivity();
+                UserState.logout(this);
                 finish();
+                redirectToLoginActivity();
                 return true;
         }
 
@@ -208,6 +210,7 @@ public class MainScreenActivity extends AppCompatActivity
 
         Intent loginScreen = new Intent(this, LoginActivity.class);
         startActivity(loginScreen);
+        finish();
 
         Log.v(TAG, "<< Method: redirectToLoginActivity()");
     }

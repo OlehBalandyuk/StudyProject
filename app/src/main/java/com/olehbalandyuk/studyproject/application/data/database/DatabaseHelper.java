@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database name and version
     // Database version should be incremented each time the database is changed
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
     private static final String DATABASE_NAME = "user_info.db";
 
     // Table, which contains user's logged state
@@ -145,7 +145,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         declareChannelsTable(database);
 
         fillDatabaseWithDefaultValues(database);
-
     }
 
     // Creating logged state table in the database
@@ -215,12 +214,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         fillLoggedTableWithDefaultValues(db);
         fillTokensTableWithDefaultValues(db);
-
-        // TODO delete
-        tempMethod_fillUserInfoTableWithDefaultValues(db);
-        // TODO delete
-        tempMethod1_fillPacketTableWithDefaultValues(db);
-        tempMethod2_fillPacketTableWithDefaultValues(db);
     }
 
     private static void fillLoggedTableWithDefaultValues(SQLiteDatabase db) {
@@ -244,34 +237,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + LOGGED_STATE_TABLE + " ;");
         db.execSQL("DROP TABLE IF EXISTS " + PACKET_TABLE + " ;");
         db.execSQL("DROP TABLE IF EXISTS " + CHANNELS_TABLE + " ;");
-    }
-
-    private static void tempMethod_fillUserInfoTableWithDefaultValues(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO " + USER_INFO_TABLE + " VALUES (" +
-                "\"no id\", " +     // USER_ID
-                "\"no email\", " +  // USER_EMAIL
-                "\"unnamed\", " +   // USER_NAME
-                "\"zero\", " +      // USER_BALANCE
-                "\"zero\")");       // USER_BONUS
-    }
-
-    private static void tempMethod1_fillPacketTableWithDefaultValues(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO " + PACKET_TABLE + " VALUES (" +
-                "\"1\", " + // PACKET_ID
-                "\"Test packet\", " + // PACKET_NAME
-                "\"123456\", " + // PACKET_PASSWORD
-                "\"" + System.currentTimeMillis() + "\", " + // PACKET_DATE_END
-                "\"1\", " + // PACKET_STATUS
-                "\"some email\")");  // PACKET_USER_EMAIL
-    }
-
-    private static void tempMethod2_fillPacketTableWithDefaultValues(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO " + PACKET_TABLE + " VALUES (" +
-                "\"2\", " + // PACKET_ID
-                "\"Test packet 2\", " + // PACKET_NAME
-                "\"324574\", " + // PACKET_PASSWORD
-                "\"" + (System.currentTimeMillis() + 5000000) + "\", " + // PACKET_DATE_END
-                "\"1\", " + // PACKET_STATUS
-                "\"null\")");  // PACKET_USER_EMAIL
     }
 }

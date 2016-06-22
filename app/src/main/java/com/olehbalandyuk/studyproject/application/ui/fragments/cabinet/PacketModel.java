@@ -9,6 +9,7 @@ class PacketModel {
     private static final String TAG = PacketModel.class.getSimpleName();
 
     private static final  int PARAMETERS_SIZE = 5;
+
     private static final int PACKET_ID = 0;
     private static final int PACKET_PASSWORD = 1;
     private static final int PACKET_TITLE = 2;
@@ -28,9 +29,9 @@ class PacketModel {
 
         if (parameters.length == PARAMETERS_SIZE) {
             mId = parameters[PACKET_ID];
+            mPassword = parameters[PACKET_PASSWORD];
             mTitle = parameters[PACKET_TITLE];
             mDate = DateFormat.getDateTimeInstance().format(new Date(Long.parseLong(parameters[PACKET_DATE_END])));
-            mPassword = parameters[PACKET_PASSWORD];
             mStatus = parameters[PACKET_STATUS].equals(AVAILABLE);
         }
         Log.v(TAG, "<< Constructor PacketModel(String[])");

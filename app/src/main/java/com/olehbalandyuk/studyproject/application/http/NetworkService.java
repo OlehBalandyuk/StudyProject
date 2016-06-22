@@ -9,8 +9,11 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.olehbalandyuk.studyproject.application.API;
+import com.olehbalandyuk.studyproject.application.data.database.DatabaseConnector;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class NetworkService extends Service {
     private static final String TAG = NetworkService.class.getSimpleName();
@@ -66,7 +69,7 @@ public class NetworkService extends Service {
 
                             @Override
                             public void onError(HttpRequestResult error) {
-                                //TODO: handle errors
+                                sendBroadcast(ERROR, null);
                             }
                         }).sendHttpRequest();
                 break;
@@ -82,6 +85,8 @@ public class NetworkService extends Service {
                                 Gson gson = new Gson();
                                 PacketSummaryResponse result = gson.fromJson(response.getResponse(), PacketSummaryResponse.class);
                                 handleResponse(result);
+
+                                sendPacketBroadcast();
                             }
 
                             @Override
@@ -149,8 +154,22 @@ public class NetworkService extends Service {
         Log.v(TAG, ">> Method: handleResponse(PacketSummaryResponse)");
 
         if (response.getStatus().equals("OK")) {
-            Log.d(TAG, "response success");
-            //TODO: handle response
+
+            ArrayList<String[]> packets = new ArrayList<>();
+
+            for (PacketModel model: response.getResults()) {
+                String packetId = model.getId();
+                String packetPassword = model.getPassword();
+                String packetTitle = model.getTitle();
+                String packetDateEnd = model.getEndDate();
+                String packetStatus = model.getStatus();
+
+                String[] packet = new String[] {packetId, packetTitle, packetPassword, packetDateEnd, packetStatus};
+                packets.add(packet);
+            }
+
+            DatabaseConnector.savePackets(this, packets);
+
         }
         Log.v(TAG, "<< Method: handleResponse(PacketSummaryResponse)");
     }
@@ -159,6 +178,11 @@ public class NetworkService extends Service {
         Intent intent = new Intent(BROADCAST_ACTION);
         intent.putExtra(HTTP_STATUS, status);
         intent.putExtra(RESPONSE, response);
+        sendBroadcast(intent);
+    }
+
+    private void sendPacketBroadcast() {
+        Intent intent = new Intent(BROADCAST_ACTION);
         sendBroadcast(intent);
     }
 
