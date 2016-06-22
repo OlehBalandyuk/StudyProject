@@ -24,7 +24,7 @@ import com.olehbalandyuk.studyproject.application.ui.fragments.current_packet.Cu
 import com.olehbalandyuk.studyproject.application.ui.fragments.messages.MessagesFragment;
 
 public class MainScreenActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, CabinetFragment.InteractionListener {
     private static final String TAG = MainScreenActivity.class.getSimpleName();
 
     private static final int CURRENT_PACKET = 0;
@@ -204,21 +204,54 @@ public class MainScreenActivity extends AppCompatActivity
     }
 
     private void redirectToLoginActivity() {
+        Log.v(TAG, ">> Method: redirectToLoginActivity()");
+
         Intent loginScreen = new Intent(this, LoginActivity.class);
         startActivity(loginScreen);
+
+        Log.v(TAG, "<< Method: redirectToLoginActivity()");
     }
 
     private void loadCabinetFragment() {
-        mNavigationView.getMenu().getItem(CABINET).setChecked(true);
-        onNavigationItemSelected(mNavigationView.getMenu().getItem(CABINET));
+        Log.v(TAG, ">> Method: loadCabinetFragment()");
+
+        loadFragment(CABINET);
+
+        Log.v(TAG, "<< Method: loadCabinetFragment()");
+    }
+
+    private void loadCurrentPacketFragment() {
+        Log.v(TAG, ">> Method: loadCurrentPacketFragment()");
+
+        loadFragment(CURRENT_PACKET);
+
+        Log.v(TAG, ">> Method: loadCurrentPacketFragment()");
+    }
+
+    private void loadFragment(int id) {
+        Log.v(TAG, ">> Method: loadFragment(int)");
+
+        mNavigationView.getMenu().getItem(id).setChecked(true);
+        onNavigationItemSelected(mNavigationView.getMenu().getItem(id));
+
+        Log.v(TAG, ">> Method: loadFragment(int)");
     }
 
     private void closeDrawer() {
+        Log.v(TAG, ">> Method: closeDrawer()");
+
         mDrawer.closeDrawer(GravityCompat.START);
+
+        Log.v(TAG, "<< Method: closeDrawer()");
     }
 
     private boolean drawerIsOpened() {
+        Log.v(TAG, ">> << Method: drawerIsOpened()");
         return mDrawer.isDrawerOpen(GravityCompat.START);
     }
 
+    @Override
+    public void showFragment() {
+        loadCurrentPacketFragment();
+    }
 }
